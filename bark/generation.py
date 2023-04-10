@@ -69,9 +69,11 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 
 REMOTE_BASE_URL = "http://s3.amazonaws.com/suno-public/bark/models/v0/"
 REMOTE_MODEL_PATHS = {
-    "text": os.environ.get("SUNO_TEXT_MODEL_PATH", os.path.join(REMOTE_BASE_URL, "text.pt")),
-    "coarse": os.environ.get("SUNO_COARSE_MODEL_PATH", os.path.join(REMOTE_BASE_URL, "coarse.pt")),
-    "fine": os.environ.get("SUNO_FINE_MODEL_PATH", os.path.join(REMOTE_BASE_URL, "fine.pt")),
+    "text": os.environ.get("SUNO_TEXT_MODEL_PATH", os.path.join(REMOTE_BASE_URL, "text_2.pt")),
+    "coarse": os.environ.get(
+        "SUNO_COARSE_MODEL_PATH", os.path.join(REMOTE_BASE_URL, "coarse_2.pt")
+    ),
+    "fine": os.environ.get("SUNO_FINE_MODEL_PATH", os.path.join(REMOTE_BASE_URL, "fine_2.pt")),
 }
 
 
