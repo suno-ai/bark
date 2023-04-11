@@ -3,7 +3,7 @@
 <a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" /></a>
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/OnusFM.svg?style=social&label=Follow%20%40OnusFM)](https://twitter.com/OnusFM)
 [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE?compact=true&style=flat)](https://discord.gg/J2B2vsjKuE)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1mnpdHViSiu4VIDGYA3k8aNgXmgOGWgU-?usp=sharing)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJfA2XUa-mXwdMy7DoYKVYHI1iTd9Vkt?usp=sharing)
 
 [Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) | [Model Card](./model-card.md)
 
@@ -15,7 +15,7 @@ Bark is a transformer-based text-to-audio model created by [Suno](https://suno.a
 
 ## 🤖 Usage
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1mnpdHViSiu4VIDGYA3k8aNgXmgOGWgU-?usp=sharing)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJfA2XUa-mXwdMy7DoYKVYHI1iTd9Vkt?usp=sharing)
 
 ```python
 from bark import SAMPLE_RATE, generate_audio
