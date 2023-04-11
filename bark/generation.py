@@ -49,10 +49,9 @@ COARSE_RATE_HZ = 75
 SAMPLE_RATE = 24_000
 
 
-ALLOWED_PROMPTS = (
-    "brylcream",
-    "es-woman",
-    "man-narrator",
+ALLOWED_PROMPTS = set(
+    [f"speech_{n}" for n in range(8)] +
+    [f"music_{n}" for n in range(6)]
 )
 
 
@@ -307,7 +306,7 @@ def generate_text_semantic(
         assert (history_prompt in ALLOWED_PROMPTS)
         semantic_history = np.load(
             os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
-        )["text"]
+        )["semantic_prompt"]
         assert (
             isinstance(semantic_history, np.ndarray)
             and len(semantic_history.shape) == 1
@@ -452,8 +451,8 @@ def generate_coarse(
         x_history = np.load(
             os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
         )
-        x_semantic_history = x_history["coarse_1"]
-        x_coarse_history = x_history["coarse_2"]
+        x_semantic_history = x_history["semantic_prompt"]
+        x_coarse_history = x_history["coarse_prompt"]
         assert (
             isinstance(x_semantic_history, np.ndarray)
             and len(x_semantic_history.shape) == 1
@@ -594,7 +593,7 @@ def generate_fine(
         assert (history_prompt in ALLOWED_PROMPTS)
         x_fine_history = np.load(
             os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
-        )["fine"]
+        )["fine_prompt"]
         assert (
             isinstance(x_fine_history, np.ndarray)
             and len(x_fine_history.shape) == 2
