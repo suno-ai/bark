@@ -1,13 +1,14 @@
 # 🐶 Bark
 
 <a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" /></a>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJfA2XUa-mXwdMy7DoYKVYHI1iTd9Vkt?usp=sharing)
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/OnusFM.svg?style=social&label=Follow%20%40OnusFM)](https://twitter.com/OnusFM)
 [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE?compact=true&style=flat)](https://discord.gg/J2B2vsjKuE)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJfA2XUa-mXwdMy7DoYKVYHI1iTd9Vkt?usp=sharing)
+
 
 [Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) | [Model Card](./model-card.md)
 
-Bark is a transformer-based text-to-audio model created by [Suno](https://suno.ai). It can generate highly realistic multilingual speech, other audio, including music and background noise, and speaker emotions like laughing, sighing and crying. To support the community we give access to pretrained model checkpoints ready for inference.
+Bark is a transformer-based text-to-audio model created by [Suno](https://suno.ai). Bark can generate highly realistic, multilingual speech as well as other audio - including music, background noise and simple sound effects. The model can also produce nonverbal communications like laughing, sighing and crying. To support the research community, we are providing access to pretrained model checkpoints ready for inference.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/5068315/230698495-cbb1ced9-c911-4c9a-941d-a1a4a1286ac6.png" width="500"></img>
@@ -33,7 +34,7 @@ Audio(audio_array, rate=SAMPLE_RATE)
 
 ### 🌎 Foreign Language
 
-Bark supports various languages out-of-the-box and automatically determines language from input text. Code-switched text will even realistically use the same voice and add an accent.
+Bark supports various languages out-of-the-box and automatically determines language from input text. When prompted with code-switched text, Bark will even attempt to employ the native accent for the respective languages in the same voice.
 
 ```python
 text_prompt = """
@@ -47,7 +48,8 @@ audio_array = generate_audio(text_prompt)
 
 ### 🎶 Music
 
-Bark can generate all types of audio, and in principle doesn't see a difference between speech and music. Sometimes it chooses to generate text as music, but you can help it out by adding notes around your lyrics.
+Bark can generate all types of audio, and, in principle, doesn't see a difference between speech and music. Sometimes Bark chooses to generate text as music, but you can help it out by adding music notes around your lyrics.
+
 ```python
 text_prompt = """
     ♪ In the jungle, the mighty jungle, the lion barks tonight ♪
@@ -59,7 +61,7 @@ audio_array = generate_audio(text_prompt)
 
 ### 👥 Speaker Prompts
 
-You can provide certain speaker prompts such as NARRATOR, MAN, WOMAN, etc. (Note that these are not always respected, especially if a conflicting audio history prompt is given.)
+You can provide certain speaker prompts such as NARRATOR, MAN, WOMAN, etc. Please note that these are not always respected, especially if a conflicting audio history prompt is given.
 
 ```python
 text_prompt = """
@@ -73,7 +75,9 @@ audio_array = generate_audio(text_prompt)
 
 ### 🎤 Voice/Audio Cloning
 
-Bark has the capability to fully clone voices as well pick up music, ambience, etc. from input clips. However, to avoid misuse of this technology we limit the audio history prompts to a limited set of Suno-provided, fully synthetic options to choose from. 
+Bark has the capability to fully clone voices - including tone, pitch, emotion and prosody. The model also attempts to preserve music, ambient noise, etc. from input audio. However, to mitigate misuse of this technology, we limit the audio history prompts to a limited set of Suno-provided, fully synthetic options to choose from. 
+
+ 
 
 ```python
 text_prompt = """
@@ -104,7 +108,7 @@ Bark has been tested and works on both CPU and GPU (`pytorch 2.0+`, CUDA 11.7 an
 Running Bark requires running >100M parameter transformer models.
 On modern GPUs and PyTorch nightly, Bark can generate audio in roughly realtime. On older GPUs, default colab, or CPU, inference time might be 10-100x slower. 
 
-If you don't have new hardware available or if you want to play with bigger versions of our models, you can also sign up for early access to our Studio [here](https://3os84zs17th.typeform.com/suno-studio).
+If you don't have new hardware available or if you want to play with bigger versions of our models, you can also sign up for early access to our model playground [here](https://3os84zs17th.typeform.com/suno-studio).
 
 ## ⚙️ Details
 
@@ -149,14 +153,14 @@ Below is a list of some known non-speech sounds, but we are finding more every d
 
 ## 🙏 Appreciation
 
-- [nanoGPT](https://github.com/karpathy/nanoGPT) for a dead-simple and blazing fast implementation of gpt-style models
+- [nanoGPT](https://github.com/karpathy/nanoGPT) for a dead-simple and blazing fast implementation of GPT-style models
 - [EnCodec](https://github.com/facebookresearch/encodec) for a state-of-the-art implementation of a fantastic audio codec
 - [AudioLM](https://github.com/lucidrains/audiolm-pytorch) for very related training and inference code
 - [Vall-E](https://arxiv.org/abs/2301.02111), [AudioLM](https://arxiv.org/abs/2209.03143) and many other ground-breaking papers that enabled the development of Bark
 
 ## © License
 
-Bark is licensed under a non-commercial CC-BY 4.0 NC. The Suno models themselves may be used commercially. However, this version of Bark uses `EnCodec` as a neural codec backend, which is licensed under a [non-commercial license](https://github.com/facebookresearch/encodec/blob/main/LICENSE).
+Bark is licensed under a non-commercial license: CC-BY 4.0 NC. The Suno models themselves may be used commercially. However, this version of Bark uses `EnCodec` as a neural codec backend, which is licensed under a [non-commercial license](https://github.com/facebookresearch/encodec/blob/main/LICENSE).
 
 Please contact us at `bark@suno.ai` if you need access to a larger version of the model and/or a version of the model you can use commercially.  
 
@@ -167,6 +171,6 @@ Please contact us at `bark@suno.ai` if you need access to a larger version of th
 
 ## 🎧 Suno Studio (Early Access)
 
-We’re developing a web interface for our models, including Bark. 
+We’re developing a playground for our models, including Bark. 
 
-You can sign up for early access [here](https://3os84zs17th.typeform.com/suno-studio).
+If you are interested, you can sign up for early access [here](https://3os84zs17th.typeform.com/suno-studio).
