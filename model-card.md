@@ -13,7 +13,7 @@ Bark is a series of three transformer models that turn text into audio.
 
 ### Semantic to coarse tokens
  - Input: semantic tokens
- - Output: tokens from the first two codebooks of the [Encodec Codec](https://github.com/facebookresearch/encodec) from facebook
+ - Output: tokens from the first two codebooks of the [EnCodec Codec](https://github.com/facebookresearch/encodec) from facebook
 
 ### Coarse to fine tokens
  - Input: the first two codebooks from EnCodec
