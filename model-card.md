@@ -36,4 +36,5 @@ Straightforward improvements will allow models to run faster than realtime, rend
  
 While we hope that this release will enable users to express their creativity and build applications that are a force
 for good, we acknowledge that any text to audio model has the potential for dual use. While it is not straightforward
-to voice clone known people with Bark, they can still be used for nefarious purposes. 
+to voice clone known people with Bark, they can still be used for nefarious purposes. To further reduce the chances of unintended use of Bark, 
+we also release a simple classifier to detect Bark-generated audio with high accuracy (see notebooks section of the main repository). 
