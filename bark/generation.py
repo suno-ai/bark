@@ -64,7 +64,7 @@ default_cache_dir = os.path.join(os.path.expanduser("~"), ".cache")
 CACHE_DIR = os.path.join(os.getenv("XDG_CACHE_HOME", default_cache_dir), "suno", "bark_v0")
 
 
-REMOTE_BASE_URL = "http://s3.amazonaws.com/suno-public/bark/models/v0/"
+REMOTE_BASE_URL = "https://dl.suno-models.io/bark/models/v0/"
 REMOTE_MODEL_PATHS = {
     "text": {
         "path": os.environ.get("SUNO_TEXT_MODEL_PATH", os.path.join(REMOTE_BASE_URL, "text_2.pt")),
