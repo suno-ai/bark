@@ -84,7 +84,7 @@ text_prompt = """
     I have a silky smooth voice, and today I will tell you about 
     the exercise regimen of the common sloth.
 """
-audio_array = generate_audio(text_prompt, history_prompt="speech_0")
+audio_array = generate_audio(text_prompt, history_prompt="en_speaker_1")
 ```
 
 [sloth.webm](https://user-images.githubusercontent.com/5068315/230684883-a344c619-a560-4ff5-8b99-b4463a34487b.webm)

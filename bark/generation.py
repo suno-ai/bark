@@ -48,10 +48,26 @@ COARSE_RATE_HZ = 75
 SAMPLE_RATE = 24_000
 
 
-ALLOWED_PROMPTS = set(
-    [f"speech_{n}" for n in range(8)] +
-    [f"music_{n}" for n in range(6)]
-)
+SUPPORTED_LANGS = [
+    ("English", "en"),
+    ("German", "de"),
+    ("Spanish", "es"),
+    ("French", "fr"),
+    ("Hindi", "hi"),
+    ("Italian", "it"),
+    ("Japanese", "ja"),
+    ("Korean", "ko"),
+    ("Polish", "pl"),
+    ("Portuguese", "pt"),
+    ("Russian", "ru"),
+    ("Turkish", "tr"),
+    ("Chinese", "zh"),
+]
+
+ALLOWED_PROMPTS = {"announcer"}
+for _, lang in SUPPORTED_LANGS:
+    for n in range(10):
+        ALLOWED_PROMPTS.add(f"{lang}_speaker_{n}")
 
 
 logger = logging.getLogger(__name__)
@@ -81,6 +97,13 @@ REMOTE_MODEL_PATHS = {
         "checksum": "59d184ed44e3650774a2f0503a48a97b",
     },
 }
+
+
+if not hasattr(torch.nn.functional, 'scaled_dot_product_attention'):
+    logger.warning(
+        "torch version does not support flash attention. You will get significantly faster" +
+        " inference speed by upgrade torch to newest version / nightly."
+    )
 
 
 def _string_md5(s):
