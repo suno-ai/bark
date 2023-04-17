@@ -59,6 +59,23 @@ audio_array = generate_audio(text_prompt)
 
 [lion.webm](https://user-images.githubusercontent.com/5068315/230684766-97f5ea23-ad99-473c-924b-66b6fab24289.webm)
 
+### 🎤 Voice/Audio Cloning
+
+Bark has the capability to fully clone voices - including tone, pitch, emotion and prosody. The model also attempts to preserve music, ambient noise, etc. from input audio. However, to mitigate misuse of this technology, we limit the audio history prompts to a limited set of Suno-provided, fully synthetic options to choose from for each language. Specify following the pattern: `{lang_code}_speaker_{number}`.
+
+```python
+text_prompt = """
+    I have a silky smooth voice, and today I will tell you about 
+    the exercise regimen of the common sloth.
+"""
+audio_array = generate_audio(text_prompt, history_prompt="en_speaker_1")
+```
+
+
+[sloth.webm](https://user-images.githubusercontent.com/5068315/230684883-a344c619-a560-4ff5-8b99-b4463a34487b.webm)
+
+*Note: since Bark recognizes languages automatically from input text, it is possible to use for example a german history prompt with english text. This usually leads to english audio with a german accent.*
+
 ### 👥 Speaker Prompts
 
 You can provide certain speaker prompts such as NARRATOR, MAN, WOMAN, etc. Please note that these are not always respected, especially if a conflicting audio history prompt is given.
@@ -73,21 +90,6 @@ audio_array = generate_audio(text_prompt)
 
 [latte.webm](https://user-images.githubusercontent.com/5068315/230684864-12d101a1-a726-471d-9d56-d18b108efcb8.webm)
 
-### 🎤 Voice/Audio Cloning
-
-Bark has the capability to fully clone voices - including tone, pitch, emotion and prosody. The model also attempts to preserve music, ambient noise, etc. from input audio. However, to mitigate misuse of this technology, we limit the audio history prompts to a limited set of Suno-provided, fully synthetic options to choose from. 
-
- 
-
-```python
-text_prompt = """
-    I have a silky smooth voice, and today I will tell you about 
-    the exercise regimen of the common sloth.
-"""
-audio_array = generate_audio(text_prompt, history_prompt="en_speaker_1")
-```
-
-[sloth.webm](https://user-images.githubusercontent.com/5068315/230684883-a344c619-a560-4ff5-8b99-b4463a34487b.webm)
 
 ## 💻 Installation
 
@@ -129,24 +131,23 @@ Below is a list of some known non-speech sounds, but we are finding more every d
 - capitalization for emphasis of a word
 - `MAN/WOMAN:` for bias towards speaker
 
-
 **Supported Languages**
 
 | Language | Status |
 | --- | --- |
-| Chinese (Mandarin) | ✅ |
-| English  | ✅ |
-| French | ✅ |
-| German | ✅ |
-| Hindi  | ✅ |
-| Italian | ✅ |
-| Japanese | ✅ |
-| Korean | ✅ |
-| Polish | ✅ |
-| Portuguese | ✅ |
-| Russian | ✅ |
-| Spanish | ✅ |
-| Turkish | ✅ |
+| English (en) | ✅ |
+| German (de) | ✅ |
+| Spanish (es) | ✅ |
+| French (fr) | ✅ |
+| Hindi (hi) | ✅ |
+| Italian (it) | ✅ |
+| Japanese (ja) | ✅ |
+| Korean (ko) | ✅ |
+| Polish (pl) | ✅ |
+| Portuguese (pt) | ✅ |
+| Russian (ru) | ✅ |
+| Turkish (tr) | ✅ |
+| Chinese, simplified (zh) | ✅ |
 | Arabic  | Coming soon! |
 | Bengali | Coming soon! |
 | Telugu | Coming soon! |
