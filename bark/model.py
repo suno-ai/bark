@@ -8,6 +8,7 @@ from dataclasses import dataclass
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
+from transformers import PreTrainedModel, PretrainedConfig
 
 class LayerNorm(nn.Module):
     """ LayerNorm but with an optional bias. PyTorch doesn't support simply bias=False """
@@ -101,7 +102,7 @@ class Block(nn.Module):
         return x
 
 @dataclass
-class GPTConfig:
+class GPTConfig(PretrainedConfig):
     block_size: int = 1024
     input_vocab_size: int = 10_048
     output_vocab_size: int = 10_048
@@ -111,14 +112,13 @@ class GPTConfig:
     dropout: float = 0.0
     bias: bool = True # True: bias in Linears and LayerNorms, like GPT-2. False: a bit better and faster
 
-class GPT(nn.Module):
+class GPT(PreTrainedModel):
 
     def __init__(self, config):
-        super().__init__()
+        super().__init__(config)
         assert config.input_vocab_size is not None
         assert config.output_vocab_size is not None
         assert config.block_size is not None
-        self.config = config
 
         self.transformer = nn.ModuleDict(dict(
             wte = nn.Embedding(config.input_vocab_size, config.n_embd),
@@ -128,19 +128,6 @@ class GPT(nn.Module):
             ln_f = LayerNorm(config.n_embd, bias=config.bias),
         ))
         self.lm_head = nn.Linear(config.n_embd, config.output_vocab_size, bias=False)
-
-    def get_num_params(self, non_embedding=True):
-        """
-        Return the number of parameters in the model.
-        For non-embedding count (default), the position embeddings get subtracted.
-        The token embeddings would too, except due to the parameter sharing these
-        params are actually used as weights in the final layer, so we include them.
-        """
-        n_params = sum(p.numel() for p in self.parameters())
-        if non_embedding:
-            n_params -= self.transformer.wte.weight.numel()
-            n_params -= self.transformer.wpe.weight.numel()
-        return n_params
 
     def forward(self, idx, merge_context=False):
         device = idx.device

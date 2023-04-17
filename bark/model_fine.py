@@ -79,7 +79,6 @@ class FineGPT(GPT):
     def __init__(self, config):
         super().__init__(config)
         del self.lm_head
-        self.config = config
         self.n_codes_total = config.n_codes_total
         self.transformer = nn.ModuleDict(
             dict(
@@ -127,21 +126,6 @@ class FineGPT(GPT):
         x = self.transformer.ln_f(x)
         logits = self.lm_heads[pred_idx - self.config.n_codes_given](x)
         return logits
-
-    def get_num_params(self, non_embedding=True):
-        """
-        Return the number of parameters in the model.
-        For non-embedding count (default), the position embeddings get subtracted.
-        The token embeddings would too, except due to the parameter sharing these
-        params are actually used as weights in the final layer, so we include them.
-        """
-        n_params = sum(p.numel() for p in self.parameters())
-        if non_embedding:
-            for wte in self.transformer.wtes:
-                n_params -= wte.weight.numel()
-            n_params -= self.transformer.wpe.weight.numel()
-        return n_params
-
 
 @dataclass
 class FineGPTConfig(GPTConfig):
