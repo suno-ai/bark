@@ -1,7 +1,7 @@
 # 🐶 Bark
 
 <a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" /></a>
-[![Demo](https://img.shields.io/badge/🤗-%20Spaces%20Demo-blue.svg)](https://huggingface.co/spaces/suno/bark)
+[![Demo](https://img.shields.io/badge/🤗-%20Hugging%20Face%20Demo-blue.svg)](https://huggingface.co/spaces/suno/bark)
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/OnusFM.svg?style=social&label=@OnusFM)](https://twitter.com/OnusFM)
 [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE?compact=true&style=flat&)](https://discord.gg/J2B2vsjKuE)
 
