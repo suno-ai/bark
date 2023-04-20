@@ -34,6 +34,15 @@ Audio(audio_array, rate=SAMPLE_RATE)
 
 [pizza.webm](https://user-images.githubusercontent.com/5068315/230490503-417e688d-5115-4eee-9550-b46a2b465ee3.webm)
 
+
+To save `audio_array` as a WAV file:
+
+```python
+from scipy.io.wavfile import write as write_wav
+
+write_wav("/path/to/audio.wav", SAMPLE_RATE, audio_array)
+```
+
 ### 🌎 Foreign Language
 
 Bark supports various languages out-of-the-box and automatically determines language from input text. When prompted with code-switched text, Bark will even attempt to employ the native accent for the respective languages in the same voice.
