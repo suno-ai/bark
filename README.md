@@ -120,7 +120,7 @@ Similar to [Vall-E](https://arxiv.org/abs/2301.02111) and some other amazing wor
 models to generate audio from scratch. Different from Vall-E, the initial text prompt is embedded into high-level semantic tokens without the use of phonemes. It can therefore generalize to arbitrary instructions beyond speech that occur in the training data, such as music lyrics, sound effects or other non-speech sounds. A subsequent second model is used to convert the generated semantic tokens into audio codec tokens to generate the full waveform. To enable the community to use Bark via public code we used the fantastic 
 [EnCodec codec](https://github.com/facebookresearch/encodec) from Facebook to act as an audio representation.
 
-Below is a list of some known non-speech sounds, but we are finding more every day. Please let us know if you find patterns that work particularly well on [Discord](https://discord.gg/DqEx7FGbFP)!
+Below is a list of some known non-speech sounds, but we are finding more every day. Please let us know if you find patterns that work particularly well on [Discord](https://discord.gg/J2B2vsjKuE)!
 
 - `[laughter]`
 - `[laughs]`
