@@ -35,6 +35,9 @@ global models
 models = {}
 
 
+global USE_SMALLER_MODELS
+USE_SMALLER_MODELS = False
+
 CONTEXT_WINDOW_SIZE = 1024
 
 SEMANTIC_RATE_HZ = 49.9
@@ -97,6 +100,19 @@ REMOTE_MODEL_PATHS = {
         "checksum": "59d184ed44e3650774a2f0503a48a97b",
     },
 }
+
+SMALL_REMOTE_MODEL_PATHS = {
+    "text": {
+        "path": os.environ.get("SUNO_TEXT_MODEL_PATH", os.path.join(REMOTE_BASE_URL, "text.pt"))
+        },
+        "coarse": {
+            "path": os.environ.get("SUNO_COARSE_MODEL_PATH", os.path.join(REMOTE_BASE_URL, "coarse.pt"))
+        },
+        "fine": {
+            "path": os.environ.get("SUNO_FINE_MODEL_PATH", os.path.join(REMOTE_BASE_URL, "fine.pt"))
+        },
+}
+
 
 
 if not hasattr(torch.nn.functional, 'scaled_dot_product_attention'):
@@ -190,6 +206,9 @@ def clean_models(model_key=None):
 
 
 def _load_model(ckpt_path, device, model_type="text"):
+
+    logger.info(f"loading {model_type} model from {ckpt_path}...")
+
     if "cuda" not in device:
         logger.warning("No GPU being used. Careful, Inference might be extremely slow!")
     if model_type == "text":
@@ -204,6 +223,7 @@ def _load_model(ckpt_path, device, model_type="text"):
     else:
         raise NotImplementedError()
     if (
+        not USE_SMALLER_MODELS and
         os.path.exists(ckpt_path) and
         _md5(ckpt_path) != REMOTE_MODEL_PATHS[model_type]["checksum"]
     ):
@@ -294,7 +314,14 @@ def load_codec_model(use_gpu=True, force_reload=False):
     return models[model_key]
 
 
-def preload_models(text_ckpt_path=None, coarse_ckpt_path=None, fine_ckpt_path=None, use_gpu=True):
+def preload_models(text_ckpt_path=None, coarse_ckpt_path=None, fine_ckpt_path=None, use_gpu=True, use_smaller_models=False):
+    global USE_SMALLER_MODELS
+    global REMOTE_MODEL_PATHS
+    if use_smaller_models:
+        USE_SMALLER_MODELS = True
+        logger.info("Using smaller models generation.py")
+        REMOTE_MODEL_PATHS = SMALL_REMOTE_MODEL_PATHS
+
     _ = load_model(
         ckpt_path=text_ckpt_path, model_type="text", use_gpu=use_gpu, force_reload=True
     )
