@@ -27,7 +27,7 @@ just saw this one-click installer: [https://github.com/Fictiverse/bark/releases]
 ```
 pip install soundfile
 ```
-### Checkout this repo or wget 
+### Checkout this repo or wget (actually you have to clone this repo for --use_smaller_models
 ```
 wget https://raw.githubusercontent.com/JonathanFly/bark/main/bark_speak.py
 ```
