@@ -36,6 +36,7 @@ def semantic_to_waveform(
     history_prompt: Optional[str] = None,
     temp: float = 0.7,
     silent: bool = False,
+    output_full: bool = False,
 ):
     """Generate audio array from semantic input.
 
@@ -44,23 +45,40 @@ def semantic_to_waveform(
         history_prompt: history choice for audio cloning
         temp: generation temperature (1.0 more diverse, 0.0 more conservative)
         silent: disable progress bar
+        output_full: return full generation to be used as a history prompt
 
     Returns:
         numpy audio array at sample frequency 24khz
     """
-    x_coarse_gen = generate_coarse(
+    coarse_tokens = generate_coarse(
         semantic_tokens,
         history_prompt=history_prompt,
         temp=temp,
         silent=silent,
     )
-    x_fine_gen = generate_fine(
-        x_coarse_gen,
+    fine_tokens = generate_fine(
+        coarse_tokens,
         history_prompt=history_prompt,
         temp=0.5,
     )
-    audio_arr = codec_decode(x_fine_gen)
+    audio_arr = codec_decode(fine_tokens)
+    if output_full:
+        full_generation = {
+            "semantic_prompt": semantic_tokens,
+            "coarse_prompt": coarse_tokens,
+            "fine_prompt": fine_tokens,
+        }
+        return full_generation, audio_arr
     return audio_arr
+
+
+def save_as_prompt(filepath, full_generation):
+    assert(filepath.endswith(".npz"))
+    assert(isinstance(full_generation, dict))
+    assert("semantic_prompt" in full_generation)
+    assert("coarse_prompt" in full_generation)
+    assert("fine_prompt" in full_generation)
+    np.savez(filepath, **full_generation)
 
 
 def generate_audio(
@@ -69,6 +87,7 @@ def generate_audio(
     text_temp: float = 0.7,
     waveform_temp: float = 0.7,
     silent: bool = False,
+    output_full: bool = False,
 ):
     """Generate audio array from input text.
 
@@ -78,14 +97,24 @@ def generate_audio(
         text_temp: generation temperature (1.0 more diverse, 0.0 more conservative)
         waveform_temp: generation temperature (1.0 more diverse, 0.0 more conservative)
         silent: disable progress bar
+        output_full: return full generation to be used as a history prompt
 
     Returns:
         numpy audio array at sample frequency 24khz
     """
-    x_semantic = text_to_semantic(
+    semantic_tokens = text_to_semantic(
         text, history_prompt=history_prompt, temp=text_temp, silent=silent,
     )
-    audio_arr = semantic_to_waveform(
-        x_semantic, history_prompt=history_prompt, temp=waveform_temp, silent=silent,
+    out = semantic_to_waveform(
+        semantic_tokens,
+        history_prompt=history_prompt,
+        temp=waveform_temp,
+        silent=silent,
+        output_full=output_full,
     )
+    if output_full:
+        full_generation, audio_arr = out
+        return full_generation, audio_arr
+    else:
+        audio_arr = out
     return audio_arr
