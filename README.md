@@ -70,7 +70,7 @@ audio_array = generate_audio(text_prompt)
 
 [lion.webm](https://user-images.githubusercontent.com/5068315/230684766-97f5ea23-ad99-473c-924b-66b6fab24289.webm)
 
-### 🎤 Voice/Audio Cloning
+### 🎤 Voice Presets and Voice/Audio Cloning
 
 Bark has the capability to fully clone voices - including tone, pitch, emotion and prosody. The model also attempts to preserve music, ambient noise, etc. from input audio. However, to mitigate misuse of this technology, we limit the audio history prompts to a limited set of Suno-provided, fully synthetic options to choose from for each language. Specify following the pattern: `{lang_code}_speaker_{number}`.
 
