@@ -1,6 +1,8 @@
 # `bark_speak.py` Barebones Command Line wrapper for  Bark audio API
 
-Basic wrapper over the basic api to write files to disk and whatnot.
+Basic wrapper over the basic api to write files to disk and whatnot. 
+
+⚡⚡ Update: Not enough GPU ram memory? Use `--use_smaller_models` it still sounds great. 
 
 ```
 python bark_speak.py --text_prompt "It is a mistake to think you can solve any major problems just with potatoes."
@@ -49,7 +51,7 @@ text_prompts.append(text_prompt)
 python bark_speak.py --help
 usage: bark_speak.py [-h] [--text_prompt TEXT_PROMPT] [--history_prompt HISTORY_PROMPT] [--text_temp TEXT_TEMP]
                      [--waveform_temp WAVEFORM_TEMP] [--filename FILENAME] [--output_dir OUTPUT_DIR]
-                     [--list_speakers]
+                     [--list_speakers] [--use_smaller_models]
 
         Generate and save audio.
         install this first: pip install soundfile
@@ -70,6 +72,7 @@ options:
   --output_dir OUTPUT_DIR
                         Output directory. Default is 'bark_samples'.
   --list_speakers       List all preset speaker options instead of generating audio.
+  --use_smaller_models  Use for GPUS with less than 10GB of memory, or for more speed.
 ```
 
 Original Bark README:
