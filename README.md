@@ -1,79 +1,67 @@
-# `bark_speak.py` Barebones Command Line wrapper for  Bark audio API
+# 🚀 BARK INFINITY 🎶
 
-Basic wrapper over the basic api to write files to disk and whatnot. 
+_(This is no longer just a command line wrapper...)_
 
-⚡⚡ Update: Not enough GPU ram memory? Use `--use_smaller_models` it still sounds great. 
+**Now it's BARK INFINITY!** 🎉
+
+## 🌟 Main Features 🌟
+
+### 1. INFINITY VOICES 🔊🌈
+Discover cool new voices and reuse them. Performers, musicians, sound effects, two party dialog scenes. Save and share them. Every audio clip saves a speaker.npz file with the voice. To reuse a voice, move the generated speaker.npz file (named the same as the .wav file) to the "prompts" directory inside "bark" where all the other .npz files are.
+
+🔊 [With random celebrity appearances!](assets/filewebm)
+
+### 2. INFINITY LENGTH 🎵🔄
+Any length prompt and audio clips. Sometimes the final result is seamless, sometimes it's stable (but usually not both!).
+
+🎵 [Now with Slowly Morphing Rick Rolls! Can you even spot the seams in the most earnest Rick Rolls you've ever heard in your life?](assets/filewebm)
+
+### 🕺 Confused Travolta Mode 🕺
+![Confused Travolta GIF](media/confused_travolta.gif)
+
+Can your text-to-speech model stammer and stall like a student answering a question about a book they didn't read? Bark can. That's the human touch. The *semantic* touch. You can almost feel the awkward silence through the screen.
+
+## 💡 But Wait, There's More: Travolta Mode Isn't Just A Joke 💡
+
+Are you tired of telling your TTS model what to say? Why not take a break and let your TTS model do the work for you. With enough patience and Confused Travolta Mode, Bark can complete your joke punchlines FOR you. Truly we live in the future. It might take 50 tries to get a joke and it's probabably an accident, but all 49 failures are also *very* amusing so it's a win/win. (That's right, I set a single function flag to False in a Bark and raved about the amazing new feature. Everything here is small potatoes really.)
+
+_**BARK INFINITY** is possible because Bark is such an amazingly simple and powerful model that even I could poke around easily._
+
+_For music, I recommend using the --split_by_lines and making sure you use a multiline string as input. You'll generally get better results if you manually split your text, which I neglected to provide an easy way to do because I stayed too late listening to 100 different Bark versions of a scene an Andor and failed Why was 6 afraid of 7 jokes._
+
+## 📝 Command Line Options 📝
+
+```bash
+--text_prompt                Text prompt. If not provided, a set of default prompts will be used defined in this file.
+--history_prompt             Optional. Choose a speaker from the list of languages. Use --list_speakers to see all available options.
+--text_temp                  Text temperature. Default is 0.7.
+--waveform_temp              Waveform temperature. Default is 0.7.
+--filename                   Output filename. If not provided, a unique filename will be generated based on the text prompt and other parameters.
+--output_dir                 Output directory. Default is 'bark_samples'.
+--list_speakers              List all preset speaker options instead of generating audio.
+--use_smaller_models         Use for GPUs with less than 10GB of memory, or for more speed.
+--split_by_words             Breaks text_prompt into <14 second audio clips every x words.
+--split_by_lines             Breaks text_prompt into <14 second audio clips every x lines.
+--stable_mode                Choppier and not as natural sounding, but much more stable for very long audio files.
+--confused_travolta_mode     Just for fun. Try it, and you'll understand. 🤷
+
+--prompt_file                Optional. The path to a file containing the text prompt. Overrides the --text_prompt option if provided.
+--prompt_file_separator      Optional. The separator used to split the content of the prompt_file into multiple text prompts.
+
+## 🎉 Get Started 🎉
+
+1. Clone the Bark repository: `git clone https://github.com/JonathanFly/bark.git`
+2. Install the required package: `pip install soundfile`
+3. Run the example command:
 
 ```
-python bark_speak.py --text_prompt "It is a mistake to think you can solve any major problems just with potatoes."
-Loading Bark models...
-Models loaded.
-Estimated time: 6.00 seconds.
-Generating: It is a mistake to think you can solve any major problems just with potatoes.
-No speaker. Randomly generating a speaker.
-100%|███████████████████████████████████████████████████████████████████████████| 100/100 [00:09<00:00, 10.78it/s]
-100%|█████████████████████████████████████████████████████████████████████████████| 36/36 [00:30<00:00,  1.17it/s]
-Saved audio to bark_samples/It_is_a_mistake-history_prompt-None-text_temp-0.7-waveform_temp-0.7-2023-04-20-22.wav
+python bark_perform.py --text_prompt "It is a mistake to think you can solve any major problems just with potatoes... or can you? (and the next page, and the next page...)" --split_by_words 35
 ```
 
-## Setup (Assumes you already have Bark, Python, Cuda, etc installed on your system)
+_If you can't get Bark installed, you might try this one-click installer: [https://github.com/Fictiverse/bark/releases](https://github.com/Fictiverse/bark/releases) - but you'll still need to clone or copy all the files in this specific bark repo into the bark directory because I don't know what I'm doing._
 
-### (But if you *can't* get Bark installed...)
+I haven't posted much lately I dipped my toes back into a bit [twitter.com/jonathanfly](https://twitter.com/jonathanfly)
 
-just saw this one-click installer: [https://github.com/Fictiverse/bark/releases](https://github.com/Fictiverse/bark/releases) 
-(can't confirm it works myself)
-
-### Then Install one more library
-```
-pip install soundfile
-```
-### Checkout this repo or wget 
-```
-wget https://raw.githubusercontent.com/JonathanFly/bark/main/bark_speak.py
-```
-## 🐶🤖 Bark Speak Command Line `python bark_speak.py`
-
-### pass `--text_prompt` on the command line
-```
-python bark_speak.py --text_prompt "It is a mistake to think you can solve any major problems just with potatoes." --history_prompt en_speaker_3
-```
-### Or edit `bark_speak.py` and add prompts and run `python bark_speak.py (--any_other_options)`
-```
-text_prompts = []
-
-text_prompt = """
-    In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move.
-"""
-text_prompts.append(text_prompt)
-```
-## 🐶🤖 Speaking Options 
-```
-python bark_speak.py --help
-usage: bark_speak.py [-h] [--text_prompt TEXT_PROMPT] [--history_prompt HISTORY_PROMPT] [--text_temp TEXT_TEMP]
-                     [--waveform_temp WAVEFORM_TEMP] [--filename FILENAME] [--output_dir OUTPUT_DIR]
-                     [--list_speakers] [--use_smaller_models]
-
-        Generate and save audio.
-        install this first: pip install soundfile
-        Example: python bark_speak.py --text_prompt "It is a mistake to think you can solve any major problems just with potatoes." --history_prompt en_speaker_3
-
-
-options:
-  -h, --help            show this help message and exit
-  --text_prompt TEXT_PROMPT
-                        Text prompt. If not provided, a set of default prompts will be used defined in this file.
-  --history_prompt HISTORY_PROMPT
-                        Optional. Choose a speaker from the list of languages: English, German, Spanish, French, Hindi, Italian, Japanese, Korean, Polish, Portuguese, Russian, Turkish, Chinese. Use --list_speakers to see all available options.
-  --text_temp TEXT_TEMP
-                        Text temperature. Default is 0.7.
-  --waveform_temp WAVEFORM_TEMP
-                        Waveform temperature. Default is 0.7.
-  --filename FILENAME   Output filename. If not provided, a unique filename will be generated based on the text prompt and other parameters.
-  --output_dir OUTPUT_DIR
-                        Output directory. Default is 'bark_samples'.
-  --list_speakers       List all preset speaker options instead of generating audio.
-  --use_smaller_models  Use for GPUS with less than 10GB of memory, or for more speed.
-```
 
 Original Bark README:
 
@@ -255,12 +243,12 @@ Bark is licensed under a non-commercial license: CC-BY 4.0 NC. The Suno models t
 
 Please contact us at `bark@suno.ai` if you need access to a larger version of the model and/or a version of the model you can use commercially.  
 
-## 📱 Community
+## 📱 Community
 
 - [Twitter](https://twitter.com/OnusFM)
 - [Discord](https://discord.gg/J2B2vsjKuE)
 
-## 🎧 Suno Studio (Early Access)
+## 🎧 Suno Studio (Early Access)
 
 We’re developing a playground for our models, including Bark. 
 
