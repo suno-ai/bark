@@ -186,3 +186,9 @@ Please contact us at `bark@suno.ai` if you need access to a larger version of th
 We’re developing a playground for our models, including Bark. 
 
 If you are interested, you can sign up for early access [here](https://3os84zs17th.typeform.com/suno-studio).
+
+## FAQ
+
+#### How do I specify where models are downloaded and cached?
+
+Use the `XDG_CACHE_HOME` env variable to override where models are downloaded and cached (otherwise defaults to a subdirectory of `~/.cache`). 
