@@ -51,28 +51,6 @@ COARSE_RATE_HZ = 75
 SAMPLE_RATE = 24_000
 
 
-SUPPORTED_LANGS = [
-    ("English", "en"),
-    ("German", "de"),
-    ("Spanish", "es"),
-    ("French", "fr"),
-    ("Hindi", "hi"),
-    ("Italian", "it"),
-    ("Japanese", "ja"),
-    ("Korean", "ko"),
-    ("Polish", "pl"),
-    ("Portuguese", "pt"),
-    ("Russian", "ru"),
-    ("Turkish", "tr"),
-    ("Chinese", "zh"),
-]
-
-ALLOWED_PROMPTS = {"announcer"}
-for _, lang in SUPPORTED_LANGS:
-    for n in range(10):
-        ALLOWED_PROMPTS.add(f"{lang}_speaker_{n}")
-
-
 logger = logging.getLogger(__name__)
 
 
@@ -369,16 +347,22 @@ def generate_text_semantic(
     max_gen_duration_s=None,
     allow_early_stop=True,
     model=None,
+    base=None,
 ):
     """Generate semantic tokens from text."""
+    print(f"history_prompt in gen: {history_prompt}")
     assert isinstance(text, str)
     text = _normalize_whitespace(text)
     assert len(text.strip()) > 0
-    if history_prompt is not None:
-        assert (history_prompt in ALLOWED_PROMPTS)
-        semantic_history = np.load(
-            os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
-        )["semantic_prompt"]
+    if history_prompt is not None or base is not None:
+        if history_prompt is not None:
+            print(history_prompt)
+            print('aa')
+            semantic_history = np.load(
+                os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
+            )["semantic_prompt"]
+        if base is not None:
+            semantic_history = base[0]
         assert (
             isinstance(semantic_history, np.ndarray)
             and len(semantic_history.shape) == 1
@@ -505,6 +489,7 @@ def generate_coarse(
     max_coarse_history=630,  # min 60 (faster), max 630 (more context)
     sliding_window_len=60,
     model=None,
+    base=None,
 ):
     """Generate coarse audio codes from semantic tokens."""
     assert (
@@ -518,13 +503,16 @@ def generate_coarse(
     assert max_coarse_history + sliding_window_len <= 1024 - 256
     semantic_to_coarse_ratio = COARSE_RATE_HZ / SEMANTIC_RATE_HZ * N_COARSE_CODEBOOKS
     max_semantic_history = int(np.floor(max_coarse_history / semantic_to_coarse_ratio))
-    if history_prompt is not None:
-        assert (history_prompt in ALLOWED_PROMPTS)
-        x_history = np.load(
-            os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
-        )
-        x_semantic_history = x_history["semantic_prompt"]
-        x_coarse_history = x_history["coarse_prompt"]
+    if history_prompt is not None or base is not None:
+        if history_prompt is not None:
+            x_history = np.load(
+                os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
+            )
+            x_semantic_history = x_history["semantic_prompt"]
+            x_coarse_history = x_history["coarse_prompt"]
+        if base is not None:
+            x_semantic_history = base[0]
+            x_coarse_history = base[1]
         assert (
             isinstance(x_semantic_history, np.ndarray)
             and len(x_semantic_history.shape) == 1
@@ -651,6 +639,7 @@ def generate_fine(
     use_gpu=True,
     silent=True,
     model=None,
+    base=None,
 ):
     """Generate full audio codes from coarse audio codes."""
     assert (
@@ -661,11 +650,13 @@ def generate_fine(
         and x_coarse_gen.min() >= 0
         and x_coarse_gen.max() <= CODEBOOK_SIZE - 1
     )
-    if history_prompt is not None:
-        assert (history_prompt in ALLOWED_PROMPTS)
-        x_fine_history = np.load(
-            os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
-        )["fine_prompt"]
+    if history_prompt is not None or base is not None:
+        if history_prompt is not None:
+            x_fine_history = np.load(
+                os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
+            )["fine_prompt"]
+        if base is not None:
+            x_fine_history = base[2]
         assert (
             isinstance(x_fine_history, np.ndarray)
             and len(x_fine_history.shape) == 2
@@ -673,7 +664,7 @@ def generate_fine(
             and x_fine_history.shape[1] >= 0
             and x_fine_history.min() >= 0
             and x_fine_history.max() <= CODEBOOK_SIZE - 1
-        )
+        )         
     else:
         x_fine_history = None
     n_coarse = x_coarse_gen.shape[0]

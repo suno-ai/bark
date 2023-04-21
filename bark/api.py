@@ -1,7 +1,5 @@
 from typing import Optional
-
 import numpy as np
-
 from .generation import codec_decode, generate_coarse, generate_fine, generate_text_semantic
 
 
@@ -9,6 +7,8 @@ def text_to_semantic(
     text: str,
     history_prompt: Optional[str] = None,
     temp: float = 0.7,
+    base = None,
+    confused_travolta_mode = False,
 ):
     """Generate semantic array from text.
 
@@ -20,10 +20,14 @@ def text_to_semantic(
     Returns:
         numpy semantic array to be fed into `semantic_to_waveform`
     """
+    allow_early_stop = not confused_travolta_mode
+    
     x_semantic = generate_text_semantic(
         text,
         history_prompt=history_prompt,
         temp=temp,
+        base=base,
+        allow_early_stop=allow_early_stop,
     )
     return x_semantic
 
@@ -32,6 +36,7 @@ def semantic_to_waveform(
     semantic_tokens: np.ndarray,
     history_prompt: Optional[str] = None,
     temp: float = 0.7,
+    base=None,
 ):
     """Generate audio array from semantic input.
 
@@ -47,14 +52,16 @@ def semantic_to_waveform(
         semantic_tokens,
         history_prompt=history_prompt,
         temp=temp,
+        base=base,
     )
     x_fine_gen = generate_fine(
         x_coarse_gen,
         history_prompt=history_prompt,
         temp=0.5,
+        base=base,
     )
     audio_arr = codec_decode(x_fine_gen)
-    return audio_arr
+    return audio_arr, x_coarse_gen, x_fine_gen
 
 
 def generate_audio(
@@ -62,6 +69,8 @@ def generate_audio(
     history_prompt: Optional[str] = None,
     text_temp: float = 0.7,
     waveform_temp: float = 0.7,
+    base = None,
+    confused_travolta_mode = False,
 ):
     """Generate audio array from input text.
 
@@ -74,6 +83,6 @@ def generate_audio(
     Returns:
         numpy audio array at sample frequency 24khz
     """
-    x_semantic = text_to_semantic(text, history_prompt=history_prompt, temp=text_temp)
-    audio_arr = semantic_to_waveform(x_semantic, history_prompt=history_prompt, temp=waveform_temp)
-    return audio_arr
+    x_semantic = text_to_semantic(text, history_prompt=history_prompt, temp=text_temp, base=base, confused_travolta_mode=confused_travolta_mode)
+    audio_arr, c, f = semantic_to_waveform(x_semantic, history_prompt=history_prompt, temp=waveform_temp, base=base)
+    return audio_arr, [x_semantic, c, f]
