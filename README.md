@@ -191,4 +191,8 @@ If you are interested, you can sign up for early access [here](https://3os84zs17
 
 #### How do I specify where models are downloaded and cached?
 
-Use the `XDG_CACHE_HOME` env variable to override where models are downloaded and cached (otherwise defaults to a subdirectory of `~/.cache`). 
+Use the `XDG_CACHE_HOME` env variable to override where models are downloaded and cached (otherwise defaults to a subdirectory of `~/.cache`).
+
+#### Bark's generations sometimes differ from my prompts. What's happening?
+
+Bark is a GPT-style model. As such, it may take some creative liberties in its generations, resulting in higher-variance model outputs than traditional text-to-speech approaches.
