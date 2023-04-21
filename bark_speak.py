@@ -143,9 +143,14 @@ def main(args):
         filename = args.filename if args.filename else ""
         output_dir = args.output_dir if args.output_dir else "bark_samples"
 
-        
         print("Loading Bark models...")
-        preload_models()
+        
+        if args.use_smaller_models:
+            print("Using smaller models.")
+            preload_models(use_smaller_models=True)
+        else:
+            preload_models()
+
         print("Models loaded.")
 
         for prompt in text_prompts_to_process:
@@ -164,6 +169,7 @@ if __name__ == "__main__":
     parser.add_argument("--filename", help="Output filename. If not provided, a unique filename will be generated based on the text prompt and other parameters.")
     parser.add_argument("--output_dir", help="Output directory. Default is 'bark_samples'.")
     parser.add_argument("--list_speakers", action="store_true", help="List all preset speaker options instead of generating audio.")
+    parser.add_argument("--use_smaller_models", action="store_true", help="Use for GPUS with less than 10GB of memory, or for more speed.")
 
     args = parser.parse_args()
     main(args)
