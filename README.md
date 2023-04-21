@@ -14,9 +14,14 @@ No speaker. Randomly generating a speaker.
 Saved audio to bark_samples/It_is_a_mistake-history_prompt-None-text_temp-0.7-waveform_temp-0.7-2023-04-20-22.wav
 ```
 
-## Setup (Assuming you already have Bark working) 
+## Setup (Assumes you already have Bark, Python, Cuda, etc installed on your system)
 
-### Install one more library
+### (But if you *can't* get Bark installed...)
+
+just saw this one-click installer: [https://github.com/Fictiverse/bark/releases](https://github.com/Fictiverse/bark/releases) 
+(can't confirm it works myself)
+
+### Then Install one more library
 ```
 pip install soundfile
 ```
