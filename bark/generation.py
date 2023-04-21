@@ -137,9 +137,9 @@ def _parse_s3_filepath(s3_filepath):
 def _download(from_s3_path, to_local_path):
     os.makedirs(CACHE_DIR, exist_ok=True)
     response = requests.get(from_s3_path, stream=True)
-    total_size_in_bytes = int(response.headers.get('content-length', 0))
-    block_size = 1024  # 1 Kibibyte
-    progress_bar = tqdm.tqdm(total=total_size_in_bytes, unit='iB', unit_scale=True)
+    total_size_in_bytes = int(response.headers.get("content-length", 0))
+    block_size = 1024
+    progress_bar = tqdm.tqdm(total=total_size_in_bytes, unit="iB", unit_scale=True)
     with open(to_local_path, "wb") as file:
         for data in response.iter_content(block_size):
             progress_bar.update(len(data))
@@ -191,7 +191,7 @@ def clean_models(model_key=None):
 
 def _load_model(ckpt_path, device, model_type="text"):
     if "cuda" not in device:
-        logger.warning("No GPU being used. Careful, Inference might be extremely slow!")
+        logger.warning("No GPU being used. Careful, inference might be extremely slow!")
     if model_type == "text":
         ConfigClass = GPTConfig
         ModelClass = GPT
@@ -207,10 +207,10 @@ def _load_model(ckpt_path, device, model_type="text"):
         os.path.exists(ckpt_path) and
         _md5(ckpt_path) != REMOTE_MODEL_PATHS[model_type]["checksum"]
     ):
-        logger.warning(f"found outdated {model_type} model, removing...")
+        logger.warning(f"found outdated {model_type} model, removing.")
         os.remove(ckpt_path)
     if not os.path.exists(ckpt_path):
-        logger.info(f"{model_type} model not found, downloading...")
+        logger.info(f"{model_type} model not found, downloading into `{CACHE_DIR}`.")
         _download(REMOTE_MODEL_PATHS[model_type]["path"], ckpt_path)
     checkpoint = torch.load(ckpt_path, map_location=device)
     # this is a hack
