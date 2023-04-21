@@ -47,7 +47,7 @@ _For music, I recommend using the --split_by_lines and making sure you use a mul
 
 --prompt_file                Optional. The path to a file containing the text prompt. Overrides the --text_prompt option if provided.
 --prompt_file_separator      Optional. The separator used to split the content of the prompt_file into multiple text prompts.
-
+```
 ## 🎉 Get Started 🎉
 
 1. Clone the Bark repository: `git clone https://github.com/JonathanFly/bark.git`

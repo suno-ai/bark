@@ -176,7 +176,6 @@ def gen_and_save_audio(text_prompt, history_prompt=None, text_temp=0.7, waveform
 
     if not filename:
         date_str = datetime.datetime.now().strftime("%Y-%m-%d-%H")
-        truncated_text = text_prompt[:15].strip().replace(" ", "_")
         truncated_text = text_prompt.replace("WOMAN:", "").replace("MAN:", "")[:15].strip().replace(" ", "_")
         filename = f"{truncated_text}-history_prompt-{orig_history_prompt}-text_temp-{text_temp}-waveform_temp-{waveform_temp}-{date_str}.wav"
         filename = generate_unique_filename(filename)
