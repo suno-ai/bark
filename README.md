@@ -1,3 +1,74 @@
+# `bark_speak.py` Barebones Command Line wrapper for  Bark audio API
+
+Basic wrapper over the basic api to write files to disk and whatnot.
+
+```
+python bark_speak.py --text_prompt "It is a mistake to think you can solve any major problems just with potatoes."
+Loading Bark models...
+Models loaded.
+Estimated time: 6.00 seconds.
+Generating: It is a mistake to think you can solve any major problems just with potatoes.
+No speaker. Randomly generating a speaker.
+100%|███████████████████████████████████████████████████████████████████████████| 100/100 [00:09<00:00, 10.78it/s]
+100%|█████████████████████████████████████████████████████████████████████████████| 36/36 [00:30<00:00,  1.17it/s]
+Saved audio to bark_samples/It_is_a_mistake-history_prompt-None-text_temp-0.7-waveform_temp-0.7-2023-04-20-22.wav
+```
+
+## Setup (Assuming you already have Bark working) 
+
+### Install one more library
+```
+pip install soundfile
+```
+### Checkout this repo or wget 
+```
+wget https://raw.githubusercontent.com/JonathanFly/bark/main/bark_speak.py
+```
+## 🐶🤖 Bark Speak Command Line `python bark_speak.py`
+
+### pass `--text_prompt` on the command line
+```
+python bark_speak.py --text_prompt "It is a mistake to think you can solve any major problems just with potatoes." --history_prompt en_speaker_3
+```
+### Or edit `bark_speak.py` and add prompts and run `python bark_speak.py (--any_other_options)`
+```
+text_prompts = []
+
+text_prompt = """
+    In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move.
+"""
+text_prompts.append(text_prompt)
+```
+## 🐶🤖 Speaking Options 
+```
+python bark_speak.py --help
+usage: bark_speak.py [-h] [--text_prompt TEXT_PROMPT] [--history_prompt HISTORY_PROMPT] [--text_temp TEXT_TEMP]
+                     [--waveform_temp WAVEFORM_TEMP] [--filename FILENAME] [--output_dir OUTPUT_DIR]
+                     [--list_speakers]
+
+        Generate and save audio.
+        install this first: pip install soundfile
+        Example: python bark_speak.py --text_prompt "It is a mistake to think you can solve any major problems just with potatoes." --history_prompt en_speaker_3
+
+
+options:
+  -h, --help            show this help message and exit
+  --text_prompt TEXT_PROMPT
+                        Text prompt. If not provided, a set of default prompts will be used defined in this file.
+  --history_prompt HISTORY_PROMPT
+                        Optional. Choose a speaker from the list of languages: English, German, Spanish, French, Hindi, Italian, Japanese, Korean, Polish, Portuguese, Russian, Turkish, Chinese. Use --list_speakers to see all available options.
+  --text_temp TEXT_TEMP
+                        Text temperature. Default is 0.7.
+  --waveform_temp WAVEFORM_TEMP
+                        Waveform temperature. Default is 0.7.
+  --filename FILENAME   Output filename. If not provided, a unique filename will be generated based on the text prompt and other parameters.
+  --output_dir OUTPUT_DIR
+                        Output directory. Default is 'bark_samples'.
+  --list_speakers       List all preset speaker options instead of generating audio.
+```
+
+Original Bark README:
+
 # 🐶 Bark
 
 <a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" /></a>
