@@ -45,7 +45,7 @@ write_wav("/path/to/audio.wav", SAMPLE_RATE, audio_array)
 
 ### 🌎 Foreign Language
 
-Bark supports various languages out-of-the-box and automatically determines language from input text. When prompted with code-switched text, Bark will even attempt to employ the native accent for the respective languages in the same voice.
+Bark supports various languages out-of-the-box and automatically determines language from input text. When prompted with code-switched text, Bark will attempt to employ the native accent for the respective languages. English quality is best for the time being, and we expect other languages to further improve with scaling. 
 
 ```python
 text_prompt = """
