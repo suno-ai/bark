@@ -94,7 +94,6 @@ def gen_and_save_audio(text_prompt,  history_prompt=None, text_temp=0.7, wavefor
         filename = f"{truncated_text}-history_prompt-{history_prompt}-text_temp-{text_temp}-waveform_temp-{waveform_temp}-{date_str}.wav"
         filename = generate_unique_filename(filename)
 
-    output_dir = "bark_samples"
     save_audio_to_file(filename, audio_array, SAMPLE_RATE, output_dir=output_dir)
 
 
