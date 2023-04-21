@@ -13,7 +13,7 @@ voice = args.voice
 
 if voice == "auto":
     audio_array = generate_audio(text_prompt)
-else
+else:
     audio_array = generate_audio(text_prompt, history_prompt=voice)
 
 Audio(audio_array, rate=SAMPLE_RATE)
