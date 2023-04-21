@@ -8,7 +8,7 @@ The following is additional information about the models released here.
 
 Bark is a series of three transformer models that turn text into audio.
 ### Text to semantic tokens
- - Input: text, tokenized with [BERT tokenizer from huggingface](https://huggingface.co/docs/transformers/model_doc/bert#transformers.BertTokenizer)
+ - Input: text, tokenized with [BERT tokenizer from Hugging Face](https://huggingface.co/docs/transformers/model_doc/bert#transformers.BertTokenizer)
  - Output: semantic tokens that encode the audio to be generated
 
 ### Semantic to coarse tokens

@@ -45,7 +45,7 @@ write_wav("/path/to/audio.wav", SAMPLE_RATE, audio_array)
 
 ### 🌎 Foreign Language
 
-Bark supports various languages out-of-the-box and automatically determines language from input text. When prompted with code-switched text, Bark will even attempt to employ the native accent for the respective languages in the same voice.
+Bark supports various languages out-of-the-box and automatically determines language from input text. When prompted with code-switched text, Bark will attempt to employ the native accent for the respective languages. English quality is best for the time being, and we expect other languages to further improve with scaling. 
 
 ```python
 text_prompt = """
@@ -70,9 +70,9 @@ audio_array = generate_audio(text_prompt)
 
 [lion.webm](https://user-images.githubusercontent.com/5068315/230684766-97f5ea23-ad99-473c-924b-66b6fab24289.webm)
 
-### 🎤 Voice/Audio Cloning
+### 🎤 Voice Presets and Voice/Audio Cloning
 
-Bark has the capability to fully clone voices - including tone, pitch, emotion and prosody. The model also attempts to preserve music, ambient noise, etc. from input audio. However, to mitigate misuse of this technology, we limit the audio history prompts to a limited set of Suno-provided, fully synthetic options to choose from for each language. Specify following the pattern: `{lang_code}_speaker_{number}`.
+Bark has the capability to fully clone voices - including tone, pitch, emotion and prosody. The model also attempts to preserve music, ambient noise, etc. from input audio. However, to mitigate misuse of this technology, we limit the audio history prompts to a limited set of Suno-provided, fully synthetic options to choose from for each language. Specify following the pattern: `{lang_code}_speaker_{0-9}`.
 
 ```python
 text_prompt = """
@@ -186,3 +186,13 @@ Please contact us at `bark@suno.ai` if you need access to a larger version of th
 We’re developing a playground for our models, including Bark. 
 
 If you are interested, you can sign up for early access [here](https://3os84zs17th.typeform.com/suno-studio).
+
+## FAQ
+
+#### How do I specify where models are downloaded and cached?
+
+Use the `XDG_CACHE_HOME` env variable to override where models are downloaded and cached (otherwise defaults to a subdirectory of `~/.cache`).
+
+#### Bark's generations sometimes differ from my prompts. What's happening?
+
+Bark is a GPT-style model. As such, it may take some creative liberties in its generations, resulting in higher-variance model outputs than traditional text-to-speech approaches.
