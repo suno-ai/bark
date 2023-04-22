@@ -26,6 +26,13 @@ if (
     torch.cuda.is_bf16_supported()
 ):
     autocast = funcy.partial(torch.cuda.amp.autocast, dtype=torch.bfloat16)
+elif (
+    torch.backends.mps.is_available() and
+    hasattr(torch.backends.mps, "amp") and
+    hasattr(torch.backends.mps.amp, "autocast") and
+    torch.backends.mps.is_bf16_supported()
+):
+    autocast = funcy.partial(torch.backends.mps.amp.autocast, dtype=torch.bfloat16)
 else:
     @contextlib.contextmanager
     def autocast():
@@ -178,7 +185,6 @@ class InferenceContext:
     def __exit__(self, exc_type, exc_value, exc_traceback):
         torch.backends.cudnn.benchmark = self._cudnn_benchmark
 
-
 if torch.cuda.is_available():
     torch.backends.cuda.matmul.allow_tf32 = True
     torch.backends.cudnn.allow_tf32 = True
@@ -190,10 +196,13 @@ def _inference_mode():
         yield
 
 
-def _clear_cuda_cache():
+def _clear_device_cache():
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
         torch.cuda.synchronize()
+    if torch.backends.mps.is_available():
+        # MPS have no concept of cleaning the cache or synchronizing
+        pass
 
 
 def clean_models(model_key=None):
@@ -202,13 +211,13 @@ def clean_models(model_key=None):
     for k in model_keys:
         if k in models:
             del models[k]
-    _clear_cuda_cache()
+    _clear_device_cache()
     gc.collect()
 
 
 def _load_model(ckpt_path, device, use_small=False, model_type="text"):
-    if "cuda" not in device:
-        logger.warning("No GPU being used. Careful, inference might be extremely slow!")
+    if "cpu" in device:
+        logger.warning("No GPU being used. Careful, Inference might be extremely slow!")
     if model_type == "text":
         ConfigClass = GPTConfig
         ModelClass = GPT
@@ -261,7 +270,7 @@ def _load_model(ckpt_path, device, use_small=False, model_type="text"):
     model.eval()
     model.to(device)
     del checkpoint, state_dict
-    _clear_cuda_cache()
+    _clear_device_cache()
     if model_type == "text":
         tokenizer = BertTokenizer.from_pretrained("bert-base-multilingual-cased")
         return {
@@ -276,19 +285,25 @@ def _load_codec_model(device):
     model.set_target_bandwidth(6.0)
     model.eval()
     model.to(device)
-    _clear_cuda_cache()
+    _clear_device_cache()
     return model
 
+def get_device(use_gpu=True):
+    if not use_gpu:
+        return "cpu"
+    if torch.cuda.is_available() and torch.cuda.device_count() > 0:
+        return "cuda"
+    if torch.backends.mps.is_available():
+        return "mps"
+    else:
+        return "cpu"
 
 def load_model(use_gpu=True, use_small=False, force_reload=False, model_type="text"):
     _load_model_f = funcy.partial(_load_model, model_type=model_type, use_small=use_small)
     if model_type not in ("text", "coarse", "fine"):
         raise NotImplementedError()
     global models
-    if torch.cuda.device_count() == 0 or not use_gpu:
-        device = "cpu"
-    else:
-        device = "cuda"
+    device = get_device(use_gpu=use_gpu)
     model_key = str(device) + f"__{model_type}"
     if model_key not in models or force_reload:
         ckpt_path = _get_ckpt_path(model_type, use_small=use_small)
@@ -300,10 +315,7 @@ def load_model(use_gpu=True, use_small=False, force_reload=False, model_type="te
 
 def load_codec_model(use_gpu=True, force_reload=False):
     global models
-    if torch.cuda.device_count() == 0 or not use_gpu:
-        device = "cpu"
-    else:
-        device = "cuda"
+    device = get_device(use_gpu=use_gpu)
     model_key = str(device) + f"__codec"
     if model_key not in models or force_reload:
         clean_models(model_key=model_key)
@@ -400,7 +412,7 @@ def generate_text_semantic(
         model = model_container["model"]
     tokenizer = model_container["tokenizer"]
     encoded_text = np.array(_tokenize(tokenizer, text)) + TEXT_ENCODING_OFFSET
-    device = "cuda" if use_gpu and torch.cuda.device_count() > 0 else "cpu"
+    device = get_device(use_gpu=use_gpu)
     if len(encoded_text) > 256:
         p = round((len(encoded_text) - 256) / len(encoded_text) * 100, 1)
         logger.warning(f"warning, text too long, lopping of last {p}%")
@@ -489,7 +501,7 @@ def generate_text_semantic(
         pbar.close()
         out = x.detach().cpu().numpy().squeeze()[256 + 256 + 1 :]
     assert all(0 <= out) and all(out < SEMANTIC_VOCAB_SIZE)
-    _clear_cuda_cache()
+    _clear_device_cache()
     return out
 
 
@@ -578,7 +590,7 @@ def generate_coarse(
         x_coarse_history = np.array([], dtype=np.int32)
     if model is None:
         model = load_model(use_gpu=use_gpu, model_type="coarse")
-    device = "cuda" if use_gpu and torch.cuda.device_count() > 0 else "cpu"
+    device = get_device(use_gpu=use_gpu)
     # start loop
     n_steps = int(
         round(
@@ -664,7 +676,7 @@ def generate_coarse(
     gen_coarse_audio_arr = gen_coarse_arr.reshape(-1, N_COARSE_CODEBOOKS).T - SEMANTIC_VOCAB_SIZE
     for n in range(1, N_COARSE_CODEBOOKS):
         gen_coarse_audio_arr[n, :] -= n * CODEBOOK_SIZE
-    _clear_cuda_cache()
+    _clear_device_cache()
     return gen_coarse_audio_arr
 
 
@@ -706,7 +718,7 @@ def generate_fine(
     n_coarse = x_coarse_gen.shape[0]
     if model is None:
         model = load_model(use_gpu=use_gpu, model_type="fine")
-    device = "cuda" if use_gpu and torch.cuda.device_count() > 0 else "cpu"
+    device = get_device(use_gpu=use_gpu)
     # make input arr
     in_arr = np.vstack(
         [
@@ -774,7 +786,7 @@ def generate_fine(
     if n_remove_from_end > 0:
         gen_fine_arr = gen_fine_arr[:, :-n_remove_from_end]
     assert gen_fine_arr.shape[-1] == x_coarse_gen.shape[-1]
-    _clear_cuda_cache()
+    _clear_device_cache()
     return gen_fine_arr
 
 
@@ -782,7 +794,7 @@ def codec_decode(fine_tokens, model=None, use_gpu=True):
     """Turn quantized audio codes into audio array using encodec."""
     if model is None:
         model = load_codec_model(use_gpu=use_gpu)
-    device = "cuda" if use_gpu and torch.cuda.device_count() > 0 else "cpu"
+    device = get_device(use_gpu=use_gpu)
     arr = torch.from_numpy(fine_tokens)[None]
     arr = arr.to(device)
     arr = arr.transpose(0, 1)
