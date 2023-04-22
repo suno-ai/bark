@@ -90,13 +90,7 @@ def estimate_spoken_time(text, wpm=150, time_limit=14):
         return False, time_in_seconds
 
 
-def save_npz_file(filename, x_semantic_continued, coarse_prompt, fine_prompt, output_dir=None):
-    if output_dir:
-        os.makedirs(output_dir, exist_ok=True)
-        filepath = os.path.join(output_dir, filename)
-    else:
-        filepath = filename
-
+def save_npz_file(filepath, x_semantic_continued, coarse_prompt, fine_prompt, output_dir=None):
     np.savez(filepath, semantic_prompt=x_semantic_continued, coarse_prompt=coarse_prompt, fine_prompt=fine_prompt)
     print(f"speaker file for this clip saved to {filepath}")
 
@@ -111,21 +105,7 @@ def split_text(text, split_words=0, split_lines=0):
         chunks = [text]
     return chunks
 
-def save_audio_to_file(filename, audio_array, sample_rate=24000, format='WAV', subtype='PCM_16', output_dir=None):
-
-    # Create output directory if it doesn't exist
-    if output_dir:
-        os.makedirs(output_dir, exist_ok=True)
-        filepath = os.path.join(output_dir, filename)
-    else:
-        filepath = filename
-
-    i = 1
-    name, ext = os.path.splitext(filepath)
-    while os.path.exists(filepath):
-        filepath = f"{name}_{i}{ext}"
-        i += 1
-
+def save_audio_to_file(filepath, audio_array, sample_rate=24000, format='WAV', subtype='PCM_16', output_dir=None):
     sf.write(filepath, audio_array, sample_rate, format=format, subtype=subtype)
     print(f"Saved audio to {filepath}")
 
@@ -143,11 +123,10 @@ def gen_and_save_audio(text_prompt, history_prompt=None, text_temp=0.7, waveform
     saveit = True if history_prompt is None else False
     if iteration == 1:
         print(f"Full Prompt: {text_prompt}")
-    if args.history_prompt:
-        print(f"  Using speaker: {history_prompt}")
-  
-    else:
-        print(f"  No speaker. Randomly generating a speaker.")
+        if args.history_prompt:
+            print(f"  Using speaker: {history_prompt}")
+        else:
+            print(f"  No speaker. Randomly generating a speaker.")
  
     text_chunks = split_text(text_prompt, split_by_words, split_by_lines)
     
@@ -181,10 +160,23 @@ def gen_and_save_audio(text_prompt, history_prompt=None, text_temp=0.7, waveform
         filename = f"{truncated_text}-history_prompt-{orig_history_prompt}-text_temp-{text_temp}-waveform_temp-{waveform_temp}-{date_str}.wav"
         filename = generate_unique_filename(filename)
 
-    if saveit is True:
-        save_npz_file(f'{filename}.npz', npzbase[0], npzbase[1], npzbase[2], output_dir=output_dir)
+    # Create output directory if it doesn't exist
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+        filepath = os.path.join(output_dir, filename)
+    else:
+        filepath = filename
 
-    save_audio_to_file(filename, concatenated_audio_arr, SAMPLE_RATE, output_dir=output_dir)
+    i = 1
+    name, ext = os.path.splitext(filepath)
+    while os.path.exists(filepath):
+        filepath = f"{name}_{i}{ext}"
+        i += 1
+
+    if saveit is True:
+        save_npz_file(f'{filepath}.npz', npzbase[0], npzbase[1], npzbase[2], output_dir=output_dir)
+
+    save_audio_to_file(filepath, concatenated_audio_arr, SAMPLE_RATE, output_dir=output_dir)
 
 
 
