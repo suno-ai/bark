@@ -1,6 +1,6 @@
 # Bark Web UI
 
-![This is the web UI for the Bark Text-to-Speech.](./webui.png)
+![This is the web UI for the Bark Text-to-Speech.](./image_webui.png)
 
 ### Installation
 
