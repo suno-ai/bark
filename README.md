@@ -1,4 +1,4 @@
-One click installer + WebUI
+[One click installer](https://github.com/Fictiverse/bark/releases) + WebUI
 ![image](https://user-images.githubusercontent.com/111762798/233760231-50eb145a-2d0d-4623-93b6-00477ee83ad5.png)
 
 
