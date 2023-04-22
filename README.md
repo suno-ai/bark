@@ -10,6 +10,6 @@ This is the web UI for the Bark Text-to-Speech.
 
 ### Usage
 
-- `Python webui.py`
+- `python webui.py`
 
 Check out the [Bark](https://github.com/suno-ai/bark) for prompts and more information.
