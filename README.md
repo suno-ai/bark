@@ -55,6 +55,7 @@ _For music, I recommend using the --split_by_lines and making sure you use a mul
 --output_dir                 Output directory. Default is 'bark_samples'.
 --list_speakers              List all preset speaker options instead of generating audio.
 --use_smaller_models         Use for GPUs with less than 10GB of memory, or for more speed.
+--iterations                 Number of iterations. Default is 1.
 --split_by_words             Breaks text_prompt into <14 second audio clips every x words.
 --split_by_lines             Breaks text_prompt into <14 second audio clips every x lines.
 --stable_mode                Choppier and not as natural sounding, but much more stable for very long audio files.
