@@ -428,7 +428,7 @@ def generate_text_semantic(
             else:
                 x_input = x
 
-            logits, kv_cache = model(x_input, merge_context=True, use_cache=use_kv_caching, past_key_values=kv_cache)
+            logits, kv_cache = model(x_input, merge_context=True, use_cache=use_kv_caching, past_kv=kv_cache)
             relevant_logits = logits[0, 0, :SEMANTIC_VOCAB_SIZE]
             if allow_early_stop:
                 relevant_logits = torch.hstack(
@@ -611,7 +611,7 @@ def generate_coarse(
                 else:
                     x_input = x_in
 
-                logits, kv_cache = model(x_input, use_cache=use_kv_caching, past_key_values=kv_cache)
+                logits, kv_cache = model(x_input, use_cache=use_kv_caching, past_kv=kv_cache)
                 logit_start_idx = (
                     SEMANTIC_VOCAB_SIZE + (1 - int(is_major_step)) * CODEBOOK_SIZE
                 )
