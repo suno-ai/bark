@@ -1,3 +1,7 @@
+One click installer + WebUI
+![image](https://user-images.githubusercontent.com/111762798/233760231-50eb145a-2d0d-4623-93b6-00477ee83ad5.png)
+
+
 # 🐶 Bark
 
 <a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" /></a>
