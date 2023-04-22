@@ -2,6 +2,8 @@
 
 _(This is no longer just a command line wrapper...)_
 
+April 22: The main bark repo just implemented small model support, so if just want that you don't need use this fork. If I can find time this weekend I'll unhack the way I did and use their parameters.
+
 **Now it's BARK INFINITY!** 🎉
 
 ## 🌟 Main Features 🌟
