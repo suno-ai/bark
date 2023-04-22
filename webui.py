@@ -6,8 +6,8 @@ import os
 from datetime import datetime
 
 
-def generate_text_to_speech(text_prompt, selected_speaker=None):
-    audio_array = generate_audio(text_prompt, selected_speaker)
+def generate_text_to_speech(text_prompt, selected_speaker, text_temp, waveform_temp):
+    audio_array = generate_audio(text_prompt, selected_speaker, text_temp, waveform_temp)
 
     now = datetime.now()
     date_str = now.strftime("%m-%d-%Y")
@@ -35,16 +35,26 @@ for lang, code in SUPPORTED_LANGS:
         speakers_list.append(f"{code}_speaker_{n}")
 
 input_text = gr.Textbox(label="Input Text", lines=4, placeholder="Enter text here...")
+text_temp = gr.Slider(
+    0.1,
+    1.0,
+    value=0.7,
+    label="Generation Temperature",
+    info="1.0 more diverse, 0.1 more conservative",
+)
+waveform_temp = gr.Slider(
+    0.1, 1.0, value=0.7, label="Waveform temperature", info="1.0 more diverse, 0.1 more conservative"
+)
 output_audio = gr.Audio(label="Generated Audio", type="filepath")
 speaker = gr.Dropdown(speakers_list, value=speakers_list[0], label="Acoustic Prompt")
 
 
 interface = gr.Interface(
     fn=generate_text_to_speech,
-    inputs=[input_text, speaker],
+    inputs=[input_text, speaker, text_temp, waveform_temp],
     outputs=output_audio,
     title="Text-to-Speech using Bark",
-    description="A simple Bark TTS Web UI using.",
+    description="A simple Bark TTS Web UI.",
 )
 
 interface.launch()
