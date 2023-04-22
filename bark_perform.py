@@ -130,7 +130,7 @@ def save_audio_to_file(filename, audio_array, sample_rate=24000, format='WAV', s
     print(f"Saved audio to {filepath}")
 
 
-def gen_and_save_audio(text_prompt, history_prompt=None, text_temp=0.7, waveform_temp=0.7, filename="", output_dir="bark_samples", split_by_words=0, split_by_lines=0, stable_mode=False, confused_travolta_mode=False):
+def gen_and_save_audio(text_prompt, history_prompt=None, text_temp=0.7, waveform_temp=0.7, filename="", output_dir="bark_samples", split_by_words=0, split_by_lines=0, stable_mode=False, confused_travolta_mode=False, iteration=1):
     def generate_unique_filename(base_filename):
         name, ext = os.path.splitext(base_filename)
         unique_filename = base_filename
@@ -141,7 +141,8 @@ def gen_and_save_audio(text_prompt, history_prompt=None, text_temp=0.7, waveform
         return unique_filename
     orig_history_prompt = history_prompt
     saveit = True if history_prompt is None else False
-    print(f"Full Prompt: {text_prompt}")
+    if iteration == 1:
+        print(f"Full Prompt: {text_prompt}")
     if args.history_prompt:
         print(f"  Using speaker: {history_prompt}")
   
@@ -259,7 +260,12 @@ def main(args):
             split_by_words = args.split_by_words if args.split_by_words else 0
             split_by_lines = args.split_by_lines if args.split_by_lines else 0
 
-            gen_and_save_audio(prompt, history_prompt, text_temp, waveform_temp, filename, output_dir, split_by_words, split_by_lines, stable_mode, confused_travolta_mode)
+            if args.iterations > 1: 
+                for iteration in range(1, args.iterations + 1):
+                    print(f"Iteration {iteration} of {args.iterations}.")
+                    gen_and_save_audio(prompt, history_prompt, text_temp, waveform_temp, filename, output_dir, split_by_words, split_by_lines, stable_mode, confused_travolta_mode, iteration=iteration)
+            else:
+                gen_and_save_audio(prompt, history_prompt, text_temp, waveform_temp, filename, output_dir, split_by_words, split_by_lines, stable_mode, confused_travolta_mode)
 
 
 if __name__ == "__main__":
@@ -301,6 +307,7 @@ if __name__ == "__main__":
     parser.add_argument("--output_dir", help="Output directory. Default is 'bark_samples'.")
     parser.add_argument("--list_speakers", action="store_true", help="List all preset speaker options instead of generating audio.")
     parser.add_argument("--use_smaller_models", action="store_true", help="Use for GPUS with less than 10GB of memory, or for more speed.")
+    parser.add_argument("--iterations", type=int, default=1, help="Number of iterations. Default is 1.")
     parser.add_argument("--split_by_words", type=int, default=0, help="Breaks text_prompt into <14 second audio clips every x words")
     parser.add_argument("--split_by_lines", type=int, default=0, help="Breaks text_prompt into <14 second audio clips every x lines")
     parser.add_argument("--stable_mode", action="store_true", help="Choppier and not as natural sounding, but much more stable for very long audio files.")
