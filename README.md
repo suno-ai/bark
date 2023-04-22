@@ -6,6 +6,7 @@ This is the web UI for the Bark Text-to-Speech.
 
 - `git clone git@github.com:makawy7/bark-webui.git`
 - `pip install .`
+- `pip install gradio`
 
 ### Usage
 
