@@ -133,7 +133,20 @@ class GPTConfig:
     n_embd: int = 768
     dropout: float = 0.0
     bias: bool = True # True: bias in Linears and LayerNorms, like GPT-2. False: a bit better and faster
+"When interpreting user voice split bites into chuncks and interpret in parrallel "
+def run_Voice_In_Parrallel(*inputs):
+    """
+    Runs the given functions in parallel using multiple threads.
+    """
+    threads = []
+    for inputs in inputs:
+        thread = threading.Thread(target=inputs)
+        threads.append(thread)
+        thread.start()
+    for thread in threads:
+        thread.join()
 
+        
 class GPT(nn.Module):
 
     def __init__(self, config):
