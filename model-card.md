@@ -1,40 +1,52 @@
-# Model Card: Bark
+class BarkModel:
+    def __init__(self):
+        self.text_to_semantic_model = self.load_model("text_to_semantic_model")
+        self.semantic_to_coarse_model = self.load_model("semantic_to_coarse_model")
+        self.coarse_to_fine_model = self.load_model("coarse_to_fine_model")
+        self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+        self.encodec = EnCodec()
 
-This is the official codebase for running the text to audio model, from Suno.ai.
+    @staticmethod
+    def load_model(model_name: str) -> torch.nn.Module:
+        """
+        Load the specified model from the local directory or a remote server.
+        """
+        # TODO: Implement the actual model loading logic
+        return torch.nn.Module()
 
-The following is additional information about the models released here. 
+    def text_to_semantic_tokens(self, text: str) -> List[int]:
+        """
+        Convert input text to semantic tokens using the text_to_semantic_model.
+        """
+        input_ids = self.tokenizer.encode(text, return_tensors="pt")
+        with torch.no_grad():
+            output = self.text_to_semantic_model(input_ids)
+        return output.argmax(dim=-1).tolist()
 
-## Model Details
+    def semantic_to_coarse_tokens(self, semantic_tokens: List[int]) -> Tuple[List[int], List[int]]:
+        """
+        Convert semantic tokens to coarse tokens using the semantic_to_coarse_model.
+        """
+        input_tensor = torch.tensor(semantic_tokens).unsqueeze(0)
+        with torch.no_grad():
+            output = self.semantic_to_coarse_model(input_tensor)
+        return output[:, :1024].argmax(dim=-1).tolist(), output[:, 1024:].argmax(dim=-1).tolist()
 
-Bark is a series of three transformer models that turn text into audio.
-### Text to semantic tokens
- - Input: text, tokenized with [BERT tokenizer from Hugging Face](https://huggingface.co/docs/transformers/model_doc/bert#transformers.BertTokenizer)
- - Output: semantic tokens that encode the audio to be generated
+    def coarse_to_fine_tokens(self, coarse_tokens: Tuple[List[int], List[int]]) -> List[List[int]]:
+        """
+        Convert coarse tokens to fine tokens using the coarse_to_fine_model.
+        """
+        input_tensor = torch.cat([torch.tensor(coarse_tokens[0]), torch.tensor(coarse_tokens[1])], dim=-1).unsqueeze(0)
+        with torch.no_grad():
+            output = self.coarse_to_fine_model(input_tensor)
+        return [output[:, i * 1024:(i + 1) * 1024].argmax(dim=-1).tolist() for i in range(6)]
 
-### Semantic to coarse tokens
- - Input: semantic tokens
- - Output: tokens from the first two codebooks of the [EnCodec Codec](https://github.com/facebookresearch/encodec) from facebook
-
-### Coarse to fine tokens
- - Input: the first two codebooks from EnCodec
- - Output: 8 codebooks from EnCodec
-
-### Architecture
-|           Model           | Parameters | Attention  | Output Vocab size |  
-|:-------------------------:|:----------:|------------|:-----------------:|
-|  Text to semantic tokens  |    80 M    | Causal     |       10,000      |
-| Semantic to coarse tokens |    80 M    | Causal     |     2x 1,024      |
-|   Coarse to fine tokens   |    80 M    | Non-causal |     6x 1,024      |
-
-
-### Release date
-April 2023
-
-## Broader Implications
-We anticipate that this model's text to audio capabilities can be used to improve accessbility tools in a variety of languages. 
-Straightforward improvements will allow models to run faster than realtime, rendering them useful for applications such as virtual assistants. 
- 
-While we hope that this release will enable users to express their creativity and build applications that are a force
-for good, we acknowledge that any text to audio model has the potential for dual use. While it is not straightforward
-to voice clone known people with Bark, they can still be used for nefarious purposes. To further reduce the chances of unintended use of Bark, 
-we also release a simple classifier to detect Bark-generated audio with high accuracy (see notebooks section of the main repository). 
+    def text_to_audio(self, text: str) -> torch.Tensor:
+        """
+        Convert input text to audio using the Bark model pipeline.
+        """
+        semantic_tokens = self.text_to_semantic_tokens(text)
+        coarse_tokens = self.semantic_to_coarse_tokens(semantic_tokens)
+        fine_tokens = self.coarse_to_fine_tokens(coarse_tokens)
+        audio = self.encodec.decode(fine_tokens)
+        return audio
