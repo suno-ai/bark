@@ -1,3 +1,5 @@
+# This file contains the configuration settings for the Suno Bark project.
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
@@ -8,11 +10,14 @@ version = "0.0.1a"
 description = "Bark text to audio model"
 readme = "README.md"
 requires-python = ">=3.8"
-authors =  [
+authors = [
     {name = "Suno Inc", email = "hello@suno.ai"},
 ]
 # Apache 2.0
 license = {file = "LICENSE"}
+
+[project.urls]
+source = "https://github.com/suno-ai/bark"
 
 dependencies = [
     "boto3",
@@ -25,9 +30,6 @@ dependencies = [
     "tqdm",
     "transformers",
 ]
-
-[project.urls]
-source = "https://github.com/suno-ai/bark"
 
 [project.optional-dependencies]
 dev = [
@@ -54,5 +56,6 @@ packages = ["bark"]
 [tool.setuptools.package-data]
 bark = ["assets/prompts/*.npz"]
 
+# Black code formatter settings
 [tool.black]
 line-length = 100
