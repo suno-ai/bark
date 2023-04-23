@@ -13,6 +13,8 @@ Discover cool new voices and reuse them. Performers, musicians, sound effects, t
 
 🔊 With random celebrity appearances!
 
+(I accidently left a bunch of voices in the repo, some of them are pretty good. Use --history_prompt 'en_fiery' for the same voice as the audio sample right after this sentence.)
+
 https://user-images.githubusercontent.com/163408/233747981-173b5f03-654e-4a0e-b71b-5d220601fcc7.mp4
 
 
