@@ -27,6 +27,7 @@ def text_to_semantic(
         history_prompt=history_prompt,
         temp=temp,
         silent=silent,
+        use_kv_caching=True
     )
     return x_semantic
 
@@ -55,6 +56,7 @@ def semantic_to_waveform(
         history_prompt=history_prompt,
         temp=temp,
         silent=silent,
+        use_kv_caching=True
     )
     fine_tokens = generate_fine(
         coarse_tokens,
@@ -103,7 +105,10 @@ def generate_audio(
         numpy audio array at sample frequency 24khz
     """
     semantic_tokens = text_to_semantic(
-        text, history_prompt=history_prompt, temp=text_temp, silent=silent,
+        text,
+        history_prompt=history_prompt,
+        temp=text_temp,
+        silent=silent,
     )
     out = semantic_to_waveform(
         semantic_tokens,
