@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Tuple, Dict, Union
 
 import numpy as np
 
@@ -10,18 +10,7 @@ def text_to_semantic(
     history_prompt: Optional[str] = None,
     temp: float = 0.7,
     silent: bool = False,
-):
-    """Generate semantic array from text.
-
-    Args:
-        text: text to be turned into audio
-        history_prompt: history choice for audio cloning
-        temp: generation temperature (1.0 more diverse, 0.0 more conservative)
-        silent: disable progress bar
-
-    Returns:
-        numpy semantic array to be fed into `semantic_to_waveform`
-    """
+) -> np.ndarray:
     x_semantic = generate_text_semantic(
         text,
         history_prompt=history_prompt,
@@ -38,19 +27,7 @@ def semantic_to_waveform(
     temp: float = 0.7,
     silent: bool = False,
     output_full: bool = False,
-):
-    """Generate audio array from semantic input.
-
-    Args:
-        semantic_tokens: semantic token output from `text_to_semantic`
-        history_prompt: history choice for audio cloning
-        temp: generation temperature (1.0 more diverse, 0.0 more conservative)
-        silent: disable progress bar
-        output_full: return full generation to be used as a history prompt
-
-    Returns:
-        numpy audio array at sample frequency 24khz
-    """
+) -> Union[Tuple[Dict[str, np.ndarray], np.ndarray], np.ndarray]:
     coarse_tokens = generate_coarse(
         semantic_tokens,
         history_prompt=history_prompt,
@@ -74,12 +51,12 @@ def semantic_to_waveform(
     return audio_arr
 
 
-def save_as_prompt(filepath, full_generation):
-    assert(filepath.endswith(".npz"))
-    assert(isinstance(full_generation, dict))
-    assert("semantic_prompt" in full_generation)
-    assert("coarse_prompt" in full_generation)
-    assert("fine_prompt" in full_generation)
+def save_as_prompt(filepath: str, full_generation: Dict[str, np.ndarray]) -> None:
+    assert filepath.endswith(".npz"), "Filepath must end with .npz"
+    assert isinstance(full_generation, dict), "full_generation must be a dictionary"
+    assert "semantic_prompt" in full_generation, "semantic_prompt key is missing"
+    assert "coarse_prompt" in full_generation, "coarse_prompt key is missing"
+    assert "fine_prompt" in full_generation, "fine_prompt key is missing"
     np.savez(filepath, **full_generation)
 
 
@@ -90,20 +67,7 @@ def generate_audio(
     waveform_temp: float = 0.7,
     silent: bool = False,
     output_full: bool = False,
-):
-    """Generate audio array from input text.
-
-    Args:
-        text: text to be turned into audio
-        history_prompt: history choice for audio cloning
-        text_temp: generation temperature (1.0 more diverse, 0.0 more conservative)
-        waveform_temp: generation temperature (1.0 more diverse, 0.0 more conservative)
-        silent: disable progress bar
-        output_full: return full generation to be used as a history prompt
-
-    Returns:
-        numpy audio array at sample frequency 24khz
-    """
+) -> Union[Tuple[Dict[str, np.ndarray], np.ndarray], np.ndarray]:
     semantic_tokens = text_to_semantic(
         text,
         history_prompt=history_prompt,
@@ -120,6 +84,5 @@ def generate_audio(
     if output_full:
         full_generation, audio_arr = out
         return full_generation, audio_arr
-    else:
-        audio_arr = out
+    audio_arr = out
     return audio_arr
