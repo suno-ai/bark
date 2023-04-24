@@ -113,33 +113,28 @@ audio_array = generate_audio(text_prompt)
 ```from bark import generate_audio,preload_models
 from scipy.io.wavfile import write as write_wav
 import numpy as np
+import nltk
 
+nltk.download('punkt')
 preload_models()
+
 long_string = """
 Bark is a transformer-based text-to-audio model created by Suno. Bark can generate highly realistic,
 multilingual speech as well as other audio - including music, background noise and simple sound effects.
 The model can also produce nonverbal communications like laughing, sighing and crying.
 To support the research community, we are providing access to pretrained model checkpoints ready for inference.
 """
-words = long_string.split()
-
-# Initialize an empty list to store the 10-word strings
-text_prompts = []
-
-# Loop through the list of words and add every 10 words to a new string
-for i in range(0, len(words), 10):
-    text_prompt = " ".join(words[i:i+10])
-    text_prompts.append(text_prompt)
+text_prompts_list = nltk.sent_tokenize(long_string)
 
 # Set up history prompt
-history_prompt = "en_speaker_2"
+history_prompt = "en_speaker_1"
 
 # Set up sample rate
 SAMPLE_RATE = 22050
 
 # Generate audio for each prompt
 audio_arrays = []
-for prompt in text_prompts:
+for prompt in text_prompts_list:
     audio_array = generate_audio(prompt, history_prompt=history_prompt)
     audio_arrays.append(audio_array)
 
