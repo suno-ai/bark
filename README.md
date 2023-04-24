@@ -107,7 +107,47 @@ audio_array = generate_audio(text_prompt)
 
 [latte.webm](https://user-images.githubusercontent.com/5068315/230684864-12d101a1-a726-471d-9d56-d18b108efcb8.webm)
 
+### 13 Seconds Output Bypass
+```
+from bark import generate_audio,preload_models
+from scipy.io.wavfile import write as write_wav
+import numpy as np
 
+preload_models()
+long_string = """
+Bark is a transformer-based text-to-audio model created by Suno. Bark can generate highly realistic,
+multilingual speech as well as other audio - including music, background noise and simple sound effects.
+The model can also produce nonverbal communications like laughing, sighing and crying.
+To support the research community, we are providing access to pretrained model checkpoints ready for inference.
+"""
+words = long_string.split()
+
+# Initialize an empty list to store the 10-word strings
+text_prompts = []
+
+# Loop through the list of words and add every 10 words to a new string
+for i in range(0, len(words), 10):
+    text_prompt = " ".join(words[i:i+10])
+    text_prompts.append(text_prompt)
+
+# Set up history prompt
+history_prompt = "en_speaker_2"
+
+# Set up sample rate
+SAMPLE_RATE = 22050
+
+# Generate audio for each prompt
+audio_arrays = []
+for prompt in text_prompts:
+    audio_array = generate_audio(prompt, history_prompt=history_prompt)
+    audio_arrays.append(audio_array)
+
+# Combine the audio files
+combined_audio = np.concatenate(audio_arrays)
+
+# Write the combined audio to a file
+write_wav("combined_audio.wav", SAMPLE_RATE, combined_audio)
+```
 ## 💻 Installation
 
 ```
