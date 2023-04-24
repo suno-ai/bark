@@ -109,8 +109,8 @@ audio_array = generate_audio(text_prompt)
 
 ### 13 Seconds Output Bypass
 
-```
-from bark import generate_audio,preload_models
+
+```from bark import generate_audio,preload_models
 from scipy.io.wavfile import write as write_wav
 import numpy as np
 
