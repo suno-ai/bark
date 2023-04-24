@@ -108,6 +108,7 @@ audio_array = generate_audio(text_prompt)
 [latte.webm](https://user-images.githubusercontent.com/5068315/230684864-12d101a1-a726-471d-9d56-d18b108efcb8.webm)
 
 ### 13 Seconds Output Bypass
+
 ```
 from bark import generate_audio,preload_models
 from scipy.io.wavfile import write as write_wav
@@ -148,6 +149,7 @@ combined_audio = np.concatenate(audio_arrays)
 # Write the combined audio to a file
 write_wav("combined_audio.wav", SAMPLE_RATE, combined_audio)
 ```
+
 ## 💻 Installation
 
 ```
