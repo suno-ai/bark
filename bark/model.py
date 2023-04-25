@@ -95,32 +95,69 @@ class MLP(nn.Module):
 
     def __init__(self, config):
         super().__init__()
+
+        # Initializes fully connected linear layer with size of n_embd * 4 as input and n_embd as output, 
+        # and applies bias according to the passed configuration
         self.c_fc    = nn.Linear(config.n_embd, 4 * config.n_embd, bias=config.bias)
+
+        # Initializes fully connected linear layer with size of n_embd as input and output, 
+        # and applies bias according to the passed configuration
         self.c_proj  = nn.Linear(4 * config.n_embd, config.n_embd, bias=config.bias)
+
+        # Initializes dropout layer with the given probability
         self.dropout = nn.Dropout(config.dropout)
+
+        # Initializes GELU activation function
         self.gelu = nn.GELU()
 
     def forward(self, x):
+        # Applies the fully connected layer on the input
         x = self.c_fc(x)
+
+        # Applies the GELU activation function on the result
         x = self.gelu(x)
+
+        # Applies the fully connected layer on the result
         x = self.c_proj(x)
+
+        # Applies dropout on the result
         x = self.dropout(x)
+
+        # Returns the result
         return x
+
 
 class Block(nn.Module):
 
     def __init__(self, config, layer_idx):
         super().__init__()
+
+        # Initializes LayerNorm layer with the size of n_embd and applies bias according to the passed configuration
         self.ln_1 = LayerNorm(config.n_embd, bias=config.bias)
+
+        # Initializes CausalSelfAttention layer with the given configuration
         self.attn = CausalSelfAttention(config)
+
+        # Initializes LayerNorm layer with the size of n_embd and applies bias according to the passed configuration
         self.ln_2 = LayerNorm(config.n_embd, bias=config.bias)
+
+        # Initializes MLP layer with the given configuration
         self.mlp = MLP(config)
+
+        # Assigns layer_idx to the instance
         self.layer_idx = layer_idx
 
     def forward(self, x, past_kv=None, use_cache=False):
+        # Applies LayerNorm layer on the input
         attn_output, prev_kvs = self.attn(self.ln_1(x), past_kv=past_kv, use_cache=use_cache)
+
+        # Adds the input and the output of the attention layer and assigns the result to x
         x = x + attn_output
+
+        # Applies LayerNorm layer on the result
         x = x + self.mlp(self.ln_2(x))
+
+        # Returns the result and the previous key-value states
         return (x, prev_kvs)
 
 @dataclass
