@@ -200,7 +200,6 @@ class GPT(nn.Module):
 
         pos_emb = self.transformer.wpe(position_ids) # position embeddings of shape (1, t, n_embd)
 
-
         x = self.transformer.drop(tok_emb + pos_emb)
 
         new_kv = () if use_cache else None
