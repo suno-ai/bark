@@ -49,6 +49,42 @@ from scipy.io.wavfile import write as write_wav
 write_wav("/path/to/audio.wav", SAMPLE_RATE, audio_array)
 ```
 
+To generates audio from a given text using Bark library and specific voice name:
+
+```python
+def generate_audio(text, voice_name):
+     # Import Bark's necessary functions for audio generation
+     from bark.generation import codec_decode, generate_coarse, generate_fine, generate_text_semantic
+     
+     # Generate a semantic encoding of the input text
+     x_semantic = generate_text_semantic(
+         text_prompt,
+         history_prompt=voice_name,
+         temp=0.7,
+         top_k=50,
+         top_p=0.95,
+     )
+
+     # Generate a coarse audio representation based on the semantic encoding
+     x_coarse_gen = generate_coarse(
+         x_semantic,
+         history_prompt=voice_name,
+         temp=0.7,
+         top_k=50,
+         top_p=0.95,
+     )
+
+     # Refine the audio representation to produce a higher-quality output
+     x_fine_gen = generate_fine(
+         x_coarse_gen,
+         history_prompt=voice_name,
+         temp=0.5,
+     )
+     
+     # Decode the audio representation and return the result as an array of samples
+     audio_array = codec_decode(x_fine_gen)
+```
+
 ### 🌎 Foreign Language
 
 Bark supports various languages out-of-the-box and automatically determines language from input text. When prompted with code-switched text, Bark will attempt to employ the native accent for the respective languages. English quality is best for the time being, and we expect other languages to further improve with scaling. 
