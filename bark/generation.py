@@ -36,6 +36,9 @@ else:
 global models
 models = {}
 
+global models_devices
+models_devices = {}
+
 
 CONTEXT_WINDOW_SIZE = 1024
 
@@ -84,6 +87,7 @@ CACHE_DIR = os.path.join(os.getenv("XDG_CACHE_HOME", default_cache_dir), "suno",
 
 USE_SMALL_MODELS = os.environ.get("SUNO_USE_SMALL_MODELS", False)
 GLOBAL_ENABLE_MPS = os.environ.get("SUNO_ENABLE_MPS", False)
+OFFLOAD_CPU = os.environ.get("SUNO_OFFLOAD_CPU", False)
 
 REMOTE_BASE_URL = "https://dl.suno-models.io/bark/models/v0/"
 
@@ -296,6 +300,9 @@ def load_model(use_gpu=True, use_small=False, force_reload=False, model_type="te
     global models
     device = _grab_best_device(use_gpu=use_gpu)
     model_key = f"{model_type}"
+    if OFFLOAD_CPU:
+        models_devices[model_key] = device
+        device = "cpu"
     if model_key not in models or force_reload:
         ckpt_path = _get_ckpt_path(model_type, use_small=use_small)
         clean_models(model_key=model_key)
@@ -315,6 +322,9 @@ def load_codec_model(use_gpu=True, force_reload=False):
         # encodec doesn't support mps
         device = "cpu"
     model_key = "codec"
+    if OFFLOAD_CPU:
+        models_devices[model_key] = device
+        device = "cpu"
     if model_key not in models or force_reload:
         clean_models(model_key=model_key)
         model = _load_codec_model(device)
@@ -417,6 +427,8 @@ def generate_text_semantic(
     model = model_container["model"]
     tokenizer = model_container["tokenizer"]
     encoded_text = np.array(_tokenize(tokenizer, text)) + TEXT_ENCODING_OFFSET
+    if OFFLOAD_CPU:
+        model.to(models_devices["text"])
     device = next(model.parameters()).device
     if len(encoded_text) > 256:
         p = round((len(encoded_text) - 256) / len(encoded_text) * 100, 1)
@@ -514,6 +526,8 @@ def generate_text_semantic(
             pbar_state = req_pbar_state
         pbar.close()
         out = x.detach().cpu().numpy().squeeze()[256 + 256 + 1 :]
+    if OFFLOAD_CPU:
+        model.to("cpu")
     assert all(0 <= out) and all(out < SEMANTIC_VOCAB_SIZE)
     _clear_cuda_cache()
     return out
@@ -605,6 +619,8 @@ def generate_coarse(
     if "coarse" not in models:
         preload_models()
     model = models["coarse"]
+    if OFFLOAD_CPU:
+        model.to(models_devices["coarse"])
     device = next(model.parameters()).device
     # start loop
     n_steps = int(
@@ -691,6 +707,8 @@ def generate_coarse(
                 n_step += 1
             del x_in
         del x_semantic_in
+    if OFFLOAD_CPU:
+        model.to("cpu")
     gen_coarse_arr = x_coarse_in.detach().cpu().numpy().squeeze()[len(x_coarse_history) :]
     del x_coarse_in
     assert len(gen_coarse_arr) == n_steps
@@ -740,6 +758,8 @@ def generate_fine(
     if "fine" not in models:
         preload_models()
     model = models["fine"]
+    if OFFLOAD_CPU:
+        model.to(models_devices["fine"])
     device = next(model.parameters()).device
     # make input arr
     in_arr = np.vstack(
@@ -808,6 +828,8 @@ def generate_fine(
             del in_buffer
         gen_fine_arr = in_arr.detach().cpu().numpy().squeeze().T
         del in_arr
+    if OFFLOAD_CPU:
+        model.to("cpu")
     gen_fine_arr = gen_fine_arr[:, n_history:]
     if n_remove_from_end > 0:
         gen_fine_arr = gen_fine_arr[:, :-n_remove_from_end]
@@ -823,6 +845,8 @@ def codec_decode(fine_tokens):
     if "codec" not in models:
         preload_models()
     model = models["codec"]
+    if OFFLOAD_CPU:
+        model.to(models_devices["codec"])
     device = next(model.parameters()).device
     arr = torch.from_numpy(fine_tokens)[None]
     arr = arr.to(device)
@@ -831,4 +855,6 @@ def codec_decode(fine_tokens):
     out = model.decoder(emb)
     audio_arr = out.detach().cpu().numpy().squeeze()
     del arr, emb, out
+    if OFFLOAD_CPU:
+        model.to("cpu")
     return audio_arr
