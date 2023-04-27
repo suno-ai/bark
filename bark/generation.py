@@ -90,34 +90,6 @@ USE_SMALL_MODELS = os.environ.get("SUNO_USE_SMALL_MODELS", False)
 GLOBAL_ENABLE_MPS = os.environ.get("SUNO_ENABLE_MPS", False)
 OFFLOAD_CPU = os.environ.get("SUNO_OFFLOAD_CPU", False)
 
-REMOTE_BASE_URL = "https://dl.suno-models.io/bark/models/v0/"
-
-# REMOTE_MODEL_PATHS = {
-#     "text_small": {
-#         "path": os.path.join(REMOTE_BASE_URL, "text.pt"),
-#         "checksum": "b3e42bcbab23b688355cd44128c4cdd3",
-#     },
-#     "coarse_small": {
-#         "path": os.path.join(REMOTE_BASE_URL, "coarse.pt"),
-#         "checksum": "5fe964825e3b0321f9d5f3857b89194d",
-#     },
-#     "fine_small": {
-#         "path": os.path.join(REMOTE_BASE_URL, "fine.pt"),
-#         "checksum": "5428d1befe05be2ba32195496e58dc90",
-#     },
-#     "text": {
-#         "path": os.path.join(REMOTE_BASE_URL, "text_2.pt"),
-#         "checksum": "54afa89d65e318d4f5f80e8e8799026a",
-#     },
-#     "coarse": {
-#         "path": os.path.join(REMOTE_BASE_URL, "coarse_2.pt"),
-#         "checksum": "8a98094e5e3a255a5c9c0ab7efe8fd28",
-#     },
-#     "fine": {
-#         "path": os.path.join(REMOTE_BASE_URL, "fine_2.pt"),
-#         "checksum": "59d184ed44e3650774a2f0503a48a97b",
-#     },
-# }
 
 REMOTE_MODEL_PATHS = {
     "text_small": {
