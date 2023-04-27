@@ -90,7 +90,7 @@ USE_SMALL_MODELS = os.environ.get("SUNO_USE_SMALL_MODELS", False)
 GLOBAL_ENABLE_MPS = os.environ.get("SUNO_ENABLE_MPS", False)
 OFFLOAD_CPU = os.environ.get("SUNO_OFFLOAD_CPU", False)
 
-# REMOTE_BASE_URL = "https://dl.suno-models.io/bark/models/v0/"
+REMOTE_BASE_URL = "https://dl.suno-models.io/bark/models/v0/"
 
 # REMOTE_MODEL_PATHS = {
 #     "text_small": {
@@ -176,7 +176,7 @@ def _md5(fname):
 
 def _get_ckpt_path(model_type, use_small=False):
     model_key = f"{model_type}_small" if use_small or USE_SMALL_MODELS else model_type
-    model_name = _string_md5(REMOTE_MODEL_PATHS[model_key]["path"])
+    model_name = _string_md5(REMOTE_MODEL_PATHS[model_key]["file_name"])
     return os.path.join(CACHE_DIR, f"{model_name}.pt")
 
 
