@@ -162,15 +162,6 @@ def _grab_best_device(use_gpu=True):
     return device
 
 
-S3_BUCKET_PATH_RE = r"s3\:\/\/(.+?)\/"
-
-
-def _parse_s3_filepath(s3_filepath):
-    bucket_name = re.search(S3_BUCKET_PATH_RE, s3_filepath).group(1)
-    rel_s3_filepath = re.sub(S3_BUCKET_PATH_RE, "", s3_filepath)
-    return bucket_name, rel_s3_filepath
-
-
 def _download(from_hf_path, file_name, to_local_path):
     os.makedirs(CACHE_DIR, exist_ok=True)
     destination_file_name = to_local_path.split("/")[-1]
