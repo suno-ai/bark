@@ -22,14 +22,13 @@ def text_to_semantic(
     Returns:
         numpy semantic array to be fed into `semantic_to_waveform`
     """
-    x_semantic = generate_text_semantic(
+    return generate_text_semantic(
         text,
         history_prompt=history_prompt,
         temp=temp,
         silent=silent,
-        use_kv_caching=True
+        use_kv_caching=True,
     )
-    return x_semantic
 
 
 def semantic_to_waveform(

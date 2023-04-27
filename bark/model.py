@@ -58,29 +58,17 @@ class CausalSelfAttention(nn.Module):
             k = torch.cat((past_key, k), dim=-2)
             v = torch.cat((past_value, v), dim=-2)
 
-        FULL_T = k.shape[-2]
-
-        if use_cache is True:
-            present = (k, v)
-        else:
-            present = None
-
+        present = (k, v) if use_cache is True else None
         # causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
         if self.flash:
             # efficient attention using Flash Attention CUDA kernels
-            if past_kv is not None:
-                # When `past_kv` is provided, we're doing incremental decoding and `q.shape[2] == 1`: q only contains
-                # the query for the last token. scaled_dot_product_attention interprets this as the first token in the
-                # sequence, so if is_causal=True it will mask out all attention from it. This is not what we want, so 
-                # to work around this we set is_causal=False.
-                is_causal = False
-            else:
-                is_causal = True
-
+            is_causal = past_kv is None
             y = torch.nn.functional.scaled_dot_product_attention(q, k, v, dropout_p=self.dropout, is_causal=is_causal)
         else:
             # manual implementation of attention
             att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
+            FULL_T = k.shape[-2]
+
             att = att.masked_fill(self.bias[:,:,FULL_T-T:FULL_T,:FULL_T] == 0, float('-inf'))
             att = F.softmax(att, dim=-1)
             att = self.attn_dropout(att)
@@ -204,7 +192,7 @@ class GPT(nn.Module):
 
         new_kv = () if use_cache else None
 
-        for i, (block, past_layer_kv) in enumerate(zip(self.transformer.h, past_kv)):
+        for block, past_layer_kv in zip(self.transformer.h, past_kv):
             x, kv = block(x, past_kv=past_layer_kv, use_cache=use_cache)
 
             if use_cache:

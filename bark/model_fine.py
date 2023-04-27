@@ -125,8 +125,7 @@ class FineGPT(GPT):
         for block in self.transformer.h:
             x = block(x)
         x = self.transformer.ln_f(x)
-        logits = self.lm_heads[pred_idx - self.config.n_codes_given](x)
-        return logits
+        return self.lm_heads[pred_idx - self.config.n_codes_given](x)
 
     def get_num_params(self, non_embedding=True):
         """
