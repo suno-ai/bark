@@ -19,8 +19,10 @@ You can try Bark here!
 [![Open on Replicate](https://img.shields.io/badge/®️-Open%20on%20Replicate-blue.svg)](https://replicate.com/suno-ai/bark)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJfA2XUa-mXwdMy7DoYKVYHI1iTd9Vkt?usp=sharing)
 
-🚀 Updates
+## 🚀 Updates
 
+**2023.04.28**
+- We updated Bark's license from CC BY NC 4.0 to the MIT License. You may now use Bark for commercial use!
 
 ## 🤖 Usage
 
@@ -59,8 +61,7 @@ Bark supports various languages out-of-the-box and automatically determines lang
 
 ```python
 text_prompt = """
-    Buenos días Miguel. Tu colega piensa que tu alemán es extremadamente malo. 
-    But I suppose your english isn't terrible.
+    추석은 내가 가장 좋아하는 명절이다. 나는 며칠 동안 휴식을 취하고 친구 및 가족과 시간을 보낼 수 있습니다.
 """
 audio_array = generate_audio(text_prompt)
 ```
