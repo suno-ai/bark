@@ -165,9 +165,8 @@ def _grab_best_device(use_gpu=True):
 def _download(from_hf_path, file_name, to_local_path):
     os.makedirs(CACHE_DIR, exist_ok=True)
     destination_file_name = to_local_path.split("/")[-1]
-    file_dir = CACHE_DIR
-    hf_hub_download(repo_id=from_hf_path, filename=file_name, local_dir=file_dir)
-    os.replace(f"{CACHE_DIR}/{file_name}", to_local_path)
+    hf_hub_download(repo_id=from_hf_path, filename=file_name, local_dir=CACHE_DIR)
+    os.replace(os.path.join(CACHE_DIR, file_name), to_local_path)
 
 class InferenceContext:
     def __init__(self, benchmark=False):
