@@ -26,8 +26,10 @@ Try Bark here!
 
 **2023.04.28**
 - We updated Bark's license from CC BY NC 4.0 to the MIT License. Bark is now available for commercial use!
+- 2x, 50x speed-up for inference. option for small models with additional speed-up with a quality trade-off
+- Use Bark with GPUs wiht low VRAM (<4GB)
 - We created a prompt library, which you can find [here](https://suno-ai.notion.site/9c5b93f57ece4e68b54808bce7b72fc8?v=89c0127caf9b4892ad1828fd467dcfff). We hope this resource will help you find useful prompts for your use cases! You can also join us on [Discord](https://discord.gg/J2B2vsjKuE), where the community actively shares and discusses prompts in the **#audio-prompts** channel.  
-- We created tutorials for long-form generation, removing background noise and improving voice consistency.  
+- We created tutorials folders - including guides for long-form generation, removing background noise and voice consistency enhancements.  
 
 ## 🤖 Usage Examples
 
