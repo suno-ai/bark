@@ -93,17 +93,17 @@ OFFLOAD_CPU = os.environ.get("SUNO_OFFLOAD_CPU", False)
 
 REMOTE_MODEL_PATHS = {
     "text_small": {
-        "repo_id": "reach-vb/bark-small",
+        "repo_id": "reach-vb/bark",
         "file_name": "text.pt",
         "checksum": "b3e42bcbab23b688355cd44128c4cdd3",
     },
     "coarse_small": {
-        "repo_id": "reach-vb/bark-small",
+        "repo_id": "reach-vb/bark",
         "file_name": "coarse.pt",
         "checksum": "5fe964825e3b0321f9d5f3857b89194d",
     },
     "fine_small": {
-        "repo_id": "reach-vb/bark-small",
+        "repo_id": "reach-vb/bark",
         "file_name": "fine.pt",
         "checksum": "5428d1befe05be2ba32195496e58dc90",
     },
