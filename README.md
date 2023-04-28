@@ -5,26 +5,33 @@
 [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE?compact=true&style=flat&)](https://discord.gg/J2B2vsjKuE)
 
 
-[Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) | [Model Card](./model-card.md) | [Playground Waitlist](https://3os84zs17th.typeform.com/suno-studio)
+[Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) <> [Model Card](./model-card.md) <> [Playground Waitlist](https://3os84zs17th.typeform.com/suno-studio)
 
-Bark is a transformer-based text-to-audio model created by [Suno](https://suno.ai). Bark can generate highly realistic, multilingual speech as well as other audio - including music, background noise and simple sound effects. The model can also produce nonverbal communications like laughing, sighing and crying. To support the research community, we are providing access to pretrained model checkpoints ready for inference.
+Bark is a transformer-based text-to-audio model created by [Suno](https://suno.ai). Bark can generate highly realistic, multilingual speech as well as other audio - including music, background noise and simple sound effects. The model can also produce nonverbal communications like laughing, sighing and crying.  
+
+As a GPT-style model, Bark takes some creative liberties in its generations — resulting in higher-variance model outputs than traditional text-to-speech approaches. To support the research community, we are providing access to pretrained model checkpoints, which are ready for inference and available for commercial use.
+
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/5068315/230698495-cbb1ced9-c911-4c9a-941d-a1a4a1286ac6.png" width="500"></img>
 </p>
 
-You can try Bark here! 
+Try Bark here! 
 
-[![Open in Spaces](https://img.shields.io/badge/%20🤗-Open%20in%20Spaces-blue.svg)](https://huggingface.co/spaces/suno/bark)
+[![Open in Spaces](https://img.shields.io/badge/🤗-Open%20in%20Spaces-blue.svg)](https://huggingface.co/spaces/suno/bark)
 [![Open on Replicate](https://img.shields.io/badge/®️-Open%20on%20Replicate-blue.svg)](https://replicate.com/suno-ai/bark)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJfA2XUa-mXwdMy7DoYKVYHI1iTd9Vkt?usp=sharing)
 
 ## 🚀 Updates
 
 **2023.04.28**
-- We updated Bark's license from CC BY NC 4.0 to the MIT License. You may now use Bark for commercial use!
+- We updated Bark's license from CC BY NC 4.0 to the MIT License. Bark is now available for commercial use!
+- We created a prompt library, which you can find here. We hope these audio prompts will help you find .npz files  
+- Join us on [Discord]((https://discord.gg/J2B2vsjKuE), where the community actively shares and discusses prompts in the **#audio-prompts** channel. 
+- Denoiser 
+- 
 
-## 🤖 Usage
+## 🤖 Usage Examples
 
 ```python
 from bark import SAMPLE_RATE, generate_audio, preload_models
@@ -66,7 +73,6 @@ text_prompt = """
 audio_array = generate_audio(text_prompt)
 ```
 
-
 ### 🎶 Music
 
 Bark can generate all types of audio, and, in principle, doesn't see a difference between speech and music. Sometimes Bark chooses to generate text as music, but you can help it out by adding music notes around your lyrics.
@@ -79,6 +85,8 @@ audio_array = generate_audio(text_prompt)
 ```
 
 [lion.webm](https://user-images.githubusercontent.com/5068315/230684766-97f5ea23-ad99-473c-924b-66b6fab24289.webm)
+
+
 
 ### 🎤 Voice Presets and Voice/Audio Cloning
 
