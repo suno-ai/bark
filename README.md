@@ -66,7 +66,8 @@ text_prompt = """
 audio_array = generate_audio(text_prompt)
 ```
 
-[miguel.webm](https://user-images.githubusercontent.com/5068315/230684752-10baadfe-1e7c-46a2-8323-43282aef2c8c.webm)
+
+
 
 ### 🎶 Music
 
