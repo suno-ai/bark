@@ -25,9 +25,9 @@ Try Bark here!
 ## 🚀 Updates
 
 **2023.04.28**
-- We updated Bark's license from CC BY NC 4.0 to the MIT License. Bark is now available for commercial use!
-- 2x, 50x speed-up for inference. option for small models with additional speed-up with a quality trade-off
-- Use Bark with GPUs wiht low VRAM (<4GB)
+- Bark is now licensed under the MIT License. It's now available for commercial use!
+- 2x speed-up on GPU. 10x speed-up on CPU. We also added an option for a smaller version of Bark, which offers additional speed-up with the trade-off of slightly lower quality. 
+- You can now use Bark with GPUs that have low VRAM (<4GB). 
 - We created a prompt library, which you can find [here](https://suno-ai.notion.site/9c5b93f57ece4e68b54808bce7b72fc8?v=89c0127caf9b4892ad1828fd467dcfff). We hope this resource will help you find useful prompts for your use cases! You can also join us on [Discord](https://discord.gg/J2B2vsjKuE), where the community actively shares and discusses prompts in the **#audio-prompts** channel.  
 - We created tutorials folders - including guides for long-form generation, removing background noise and voice consistency enhancements.  
 
@@ -190,9 +190,9 @@ Below is a list of some known non-speech sounds, but we are finding more every d
 
 ## © License
 
-Bark is licensed under a non-commercial license: CC-BY 4.0 NC. The Suno models themselves may be used commercially. However, this version of Bark uses `EnCodec` as a neural codec backend, which is licensed under a [non-commercial license](https://github.com/facebookresearch/encodec/blob/main/LICENSE).
+Bark is licensed under the MIT License. 
 
-Please contact us at `bark@suno.ai` if you need access to a larger version of the model and/or a version of the model you can use commercially.  
+Please contact us at `bark@suno.ai` to request access to a larger version of the model.  
 
 ## 📱 Community
 
@@ -214,3 +214,9 @@ Use the `XDG_CACHE_HOME` env variable to override where models are downloaded an
 #### Bark's generations sometimes differ from my prompts. What's happening?
 
 Bark is a GPT-style model. As such, it may take some creative liberties in its generations, resulting in higher-variance model outputs than traditional text-to-speech approaches.
+
+#### Voice Cloning 
+
+#### VRAM 
+
+#### Metallic Hollow Sound
