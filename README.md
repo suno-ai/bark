@@ -67,8 +67,6 @@ audio_array = generate_audio(text_prompt)
 ```
 
 
-
-
 ### 🎶 Music
 
 Bark can generate all types of audio, and, in principle, doesn't see a difference between speech and music. Sometimes Bark chooses to generate text as music, but you can help it out by adding music notes around your lyrics.
