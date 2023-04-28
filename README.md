@@ -107,7 +107,7 @@ audio_array = generate_audio(text_prompt, history_prompt="en_speaker_1")
 
 ### 👥 Speaker Prompts
 
-You can provide certain speaker prompts such as NARRATOR, MAN, WOMAN, etc. Please note that these are not always respected, especially if a conflicting audio history prompt is given.
+You can provide certain speaker prompts such as [MAN], [WOMAN], [NARRATOR], etc. Bark doesn't always respect these prompts, especially if a conflicting audio history prompt is given. For example, you indicate [MAN] in the text prompt, but a woman is speaking in the audio history prompt. 
 
 ```python
 text_prompt = """
