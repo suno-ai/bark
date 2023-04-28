@@ -13,10 +13,15 @@ Bark is a transformer-based text-to-audio model created by [Suno](https://suno.a
 <img src="https://user-images.githubusercontent.com/5068315/230698495-cbb1ced9-c911-4c9a-941d-a1a4a1286ac6.png" width="500"></img>
 </p>
 
-## 🔊 Demos
+You can try Bark here: 
 
-[![Open in Spaces](https://img.shields.io/badge/🤗-Open%20In%20Spaces-blue.svg)](https://huggingface.co/spaces/suno/bark)
+[![Open in Spaces](https://img.shields.io/badge/%20🤗-Open%20in%20Spaces-blue.svg)](https://huggingface.co/spaces/suno/bark)
+[![Open on Replicate](https://img.shields.io/badge/®️-Open%20on%20Replicate-blue.svg)](https://replicate.com/suno-ai/bark)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJfA2XUa-mXwdMy7DoYKVYHI1iTd9Vkt?usp=sharing)
+
+## 🚀 Updates
+
+
 
 ## 🤖 Usage
 
