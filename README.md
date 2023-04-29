@@ -8,7 +8,7 @@
 [Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) • [Model Card](./model-card.md) • [Studio Waitlist](https://3os84zs17th.typeform.com/suno-studio)
 
 ### \*\*Disclaimer\*\*
-Bark has been devolved for research and demo purposes. It is not a conventional TTS model, but instead a fully generative text-to-audio model often deviating in unexpected ways from any given script. Suno does not take responsibility for any output generated. Use at your own risk and please act responsibly.
+Bark has been developed for research and demo purposes. It is not a conventional TTS model, but instead a fully generative text-to-audio model often deviating in unexpected ways from any given script. Suno does not take responsibility for any output generated. Use at your own risk and please act responsibly.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/5068315/235310676-a4b3b511-90ec-4edf-8153-7ccf14905d73.png" width="500"></img>
