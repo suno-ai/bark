@@ -22,6 +22,8 @@ Try Bark here!
 [![Open on Replicate](https://img.shields.io/badge/®️-Open%20on%20Replicate-blue.svg)](https://replicate.com/suno-ai/bark)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJfA2XUa-mXwdMy7DoYKVYHI1iTd9Vkt?usp=sharing)
 
+[Updates](#-updates) • [Usage](#-usage-in-python) • [Installation](#-installation) • [FAQ](#-faq)
+
 ## 🚀 Updates
 
 **2023.04.28**
@@ -202,7 +204,7 @@ We’re developing a playground for our models, including Bark.
 
 If you are interested, you can sign up for early access [here](https://3os84zs17th.typeform.com/suno-studio).
 
-## FAQ
+## ❓ FAQ
 
 #### How do I specify where models are downloaded and cached?
 * Use the `XDG_CACHE_HOME` env variable to override where models are downloaded and cached (otherwise defaults to a subdirectory of `~/.cache`).
