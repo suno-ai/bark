@@ -5,7 +5,7 @@
 [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE?compact=true&style=flat&)](https://discord.gg/J2B2vsjKuE)
 
 
-[Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) • [Model Card](./model-card.md) • [Playground Waitlist](https://3os84zs17th.typeform.com/suno-studio)
+[Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) • [Model Card](./model-card.md) • [Studio Waitlist](https://3os84zs17th.typeform.com/suno-studio)
 
 Bark is a transformer-based text-to-audio model created by [Suno](https://suno.ai). Bark can generate highly realistic, multilingual speech as well as other audio - including music, background noise and simple sound effects. The model can also produce nonverbal communications like laughing, sighing and crying.  
 
@@ -31,7 +31,11 @@ Try Bark here!
 - We created a prompt library, which you can find [here](https://suno-ai.notion.site/9c5b93f57ece4e68b54808bce7b72fc8?v=89c0127caf9b4892ad1828fd467dcfff). We hope this resource will help you find useful prompts for your use cases! You can also join us on [Discord](https://discord.gg/J2B2vsjKuE), where the community actively shares and discusses prompts in the **#audio-prompts** channel.  
 - We created tutorials folders - including guides for long-form generation, removing background noise and voice consistency enhancements.  
 
-## 🤖 Usage Examples
+## 🐍 Usage in Python
+
+<details>
+  <summary>🪑 Basics</summary>
+<br>
 
 ```python
 from bark import SAMPLE_RATE, generate_audio, preload_models
@@ -62,20 +66,34 @@ from scipy.io.wavfile import write as write_wav
 write_wav("/path/to/audio.wav", SAMPLE_RATE, audio_array)
 ```
 
-### 🌎 Foreign Language
+</details>
 
+<details>
+  <summary>🌎 Foreign Language</summary>
+<br>
 Bark supports various languages out-of-the-box and automatically determines language from input text. When prompted with code-switched text, Bark will attempt to employ the native accent for the respective languages. English quality is best for the time being, and we expect other languages to further improve with scaling. 
+<br>
+<br>
 
 ```python
+
 text_prompt = """
     추석은 내가 가장 좋아하는 명절이다. 나는 며칠 동안 휴식을 취하고 친구 및 가족과 시간을 보낼 수 있습니다.
 """
 audio_array = generate_audio(text_prompt)
+
+[miguel.webm](https://user-images.githubusercontent.com/5068315/230684752-10baadfe-1e7c-46a2-8323-43282aef2c8c.webm)
+
+*Note: since Bark recognizes languages automatically from input text, it is possible to use for example a german history prompt with english text. This usually leads to english audio with a german accent.*
 ```
+</details>
 
-### 🎶 Music
-
+<details>
+  <summary>🎶 Music</summary>
+<br>
 Bark can generate all types of audio, and, in principle, doesn't see a difference between speech and music. Sometimes Bark chooses to generate text as music, but you can help it out by adding music notes around your lyrics.
+<br>
+<br>
 
 ```python
 text_prompt = """
@@ -83,14 +101,15 @@ text_prompt = """
 """
 audio_array = generate_audio(text_prompt)
 ```
-
 [lion.webm](https://user-images.githubusercontent.com/5068315/230684766-97f5ea23-ad99-473c-924b-66b6fab24289.webm)
+</details>
 
-
-
-### 🎤 Voice Presets and Voice/Audio Cloning
-
+<details>
+<summary>🎤 Voice Presets and Voice/Audio Cloning</summary>
+<br>
 Bark has the capability to fully clone voices - including tone, pitch, emotion and prosody. The model also attempts to preserve music, ambient noise, etc. from input audio. However, to mitigate misuse of this technology, we limit the audio history prompts to a limited set of Suno-provided, fully synthetic options to choose from for each language. Specify following the pattern: `{lang_code}_speaker_{0-9}`.
+<br>
+<br>
 
 ```python
 text_prompt = """
@@ -100,25 +119,8 @@ text_prompt = """
 audio_array = generate_audio(text_prompt, history_prompt="en_speaker_1")
 ```
 
-
 [sloth.webm](https://user-images.githubusercontent.com/5068315/230684883-a344c619-a560-4ff5-8b99-b4463a34487b.webm)
-
-*Note: since Bark recognizes languages automatically from input text, it is possible to use for example a german history prompt with english text. This usually leads to english audio with a german accent.*
-
-### 👥 Speaker Prompts
-
-You can provide certain speaker prompts such as [MAN], [WOMAN], [NARRATOR], etc. Bark doesn't always respect these prompts, especially if a conflicting audio history prompt is given. For example, you indicate [MAN] in the text prompt, but a woman is speaking in the audio history prompt. 
-
-```python
-text_prompt = """
-    WOMAN: I would like an oatmilk latte please.
-    MAN: Wow, that's expensive!
-"""
-audio_array = generate_audio(text_prompt)
-```
-
-[latte.webm](https://user-images.githubusercontent.com/5068315/230684864-12d101a1-a726-471d-9d56-d18b108efcb8.webm)
-
+</details>
 
 ## 💻 Installation
 
