@@ -178,9 +178,6 @@ Below is a list of some known non-speech sounds, but we are finding more every d
 | Russian (ru) | ✅ |
 | Turkish (tr) | ✅ |
 | Chinese, simplified (zh) | ✅ |
-| Arabic  | Coming soon! |
-| Bengali | Coming soon! |
-| Telugu | Coming soon! |
 
 ## 🙏 Appreciation
 
