@@ -206,15 +206,16 @@ If you are interested, you can sign up for early access [here](https://3os84zs17
 ## FAQ
 
 #### How do I specify where models are downloaded and cached?
-
-Use the `XDG_CACHE_HOME` env variable to override where models are downloaded and cached (otherwise defaults to a subdirectory of `~/.cache`).
+* Use the `XDG_CACHE_HOME` env variable to override where models are downloaded and cached (otherwise defaults to a subdirectory of `~/.cache`).
 
 #### Bark's generations sometimes differ from my prompts. What's happening?
-
-Bark is a GPT-style model. As such, it may take some creative liberties in its generations, resulting in higher-variance model outputs than traditional text-to-speech approaches.
+* Bark is a GPT-style model. As such, it may take some creative liberties in its generations, resulting in higher-variance model outputs than traditional text-to-speech approaches.
 
 #### Voice Cloning 
+* Bark can theoretically clone voices with only a few seconds of input audio. Given the potential misuse of that technology we limit the public release to work with prompts generated de-novo via Bark and a limited set of Suno provided prompts. See more in the tutorials section here.
 
-#### VRAM 
+#### How much VRAM do I need?
+* The full version of Bark requires around 12Gb of memory to hold everything on GPU at the same time. However even smaller cards down to ~2Gb work with some additional settings, see more info here.
 
-#### Metallic Hollow Sound
+#### My generated Audio sounds like an 80s phone call, what's happening?
+* Bark generates audio completely from scratch. It is not meant to create only high-quality Studio speech, but rather the output could be anything from a perfect speech to multiple people arguing at a baseball game with a bad microphone.
