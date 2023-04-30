@@ -182,6 +182,8 @@ Below is a list of some known non-speech sounds, but we are finding more every d
 | Turkish (tr) | ✅ |
 | Chinese, simplified (zh) | ✅ |
 
+Requests for future language support [here](https://github.com/suno-ai/bark/discussions/111).
+
 ## 🙏 Appreciation
 
 - [nanoGPT](https://github.com/karpathy/nanoGPT) for a dead-simple and blazing fast implementation of GPT-style models
