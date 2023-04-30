@@ -43,8 +43,7 @@ To preview new features and get help, join our community here:
 ## 🐍 Usage in Python
 
 <details open>
-  <summary>🪑 Basics</summary>
-<br>
+  <summary><h3>🪑 Basics</h3></summary>
 
 ```python
 from bark import SAMPLE_RATE, generate_audio, preload_models
@@ -73,7 +72,7 @@ Audio(audio_array, rate=SAMPLE_RATE)
 </details>
 
 <details open>
-  <summary>🌎 Foreign Language</summary>
+  <summary><h3>🌎 Foreign Language</h3></summary>
 <br>
 Bark supports various languages out-of-the-box and automatically determines language from input text. When prompted with code-switched text, Bark will attempt to employ the native accent for the respective languages. English quality is best for the time being, and we expect other languages to further improve with scaling. 
 <br>
@@ -93,8 +92,7 @@ audio_array = generate_audio(text_prompt)
 </details>
 
 <details open>
-  <summary>🎶 Music</summary>
-<br>
+  <summary><h3>🎶 Music</h3></summary>
 Bark can generate all types of audio, and, in principle, doesn't see a difference between speech and music. Sometimes Bark chooses to generate text as music, but you can help it out by adding music notes around your lyrics.
 <br>
 <br>
@@ -109,8 +107,7 @@ audio_array = generate_audio(text_prompt)
 </details>
 
 <details open>
-<summary>🎤 Voice Presets</summary>
-<br>
+<summary><h3>🎤 Voice Presets</h3></summary>
   
 Bark supports 100+ speaker presets across [supported languages](#supported-languages). You can browse the library of speaker presets [here](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c), or in the [code](bark/assets/prompts). The community also often shares presets in [Discord](https://discord.gg/J2B2vsjKuE).
 
