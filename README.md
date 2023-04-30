@@ -170,7 +170,7 @@ Below is a list of some known non-speech sounds, but we are finding more every d
 - `—` or `...` for hesitations
 - `♪` for song lyrics
 - CAPITALIZATION for emphasis of a word
-- `[MAN]` and `[WOMAN]` to bias Bark towards male and female speakers, respectively
+- `[MAN]` and `[WOMAN]` to bias Bark toward male and female speakers, respectively
 
 ### Supported Languages
 
