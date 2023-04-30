@@ -145,7 +145,10 @@ cd bark && pip install .
 Bark has been tested and works on both CPU and GPU (`pytorch 2.0+`, CUDA 11.7 and CUDA 12.0).
 On modern GPUs and PyTorch nightly, Bark can generate audio in roughly realtime. On older GPUs, default colab, or CPU, inference time might significantly slower. For older GPUs or CPU you might want to consider using smaller models. Details can be found in out tutorial sections here.
 
-If you don't have new hardware available or if you want to play with bigger versions of our models, you can also sign up for early access to our model playground [here](https://3os84zs17th.typeform.com/suno-studio).
+The full version of Bark requires around 12GB of VRAM to hold everything on GPU at the same time. 
+To use a smaller version of the models, which should fit into 8GB VRAM, set the environment flag `SUNO_USE_SMALL_MODELS=True`.
+
+If you don't have hardware available or if you want to play with bigger versions of our models, you can also sign up for early access to our model playground [here](https://3os84zs17th.typeform.com/suno-studio).
 
 ## ⚙️ Details
 
