@@ -41,7 +41,7 @@ To preview new features and get help, join our community here:
 
 ## 🐍 Usage in Python
 
-<details>
+<details open>
   <summary>🪑 Basics</summary>
 <br>
 
