@@ -223,10 +223,16 @@ If you are interested, you can sign up for early access [here](https://3os84zs17
 * Bark is a GPT-style model. As such, it may take some creative liberties in its generations, resulting in higher-variance model outputs than traditional text-to-speech approaches.
 
 #### Voice Cloning 
-* Bark can theoretically clone voices with only a few seconds of input audio. Given the potential misuse of that technology we limit the public release to work with voice presets generated de-novo using Bark. See more in the tutorials section here.
+* Given the potential misuse of voice cloning technology, we limit the public release to work with voice presets generated de-novo using Bark.
 
 #### How much VRAM do I need?
-* The full version of Bark requires around 12Gb of memory to hold everything on GPU at the same time. However even smaller cards down to ~2Gb work with some additional settings, see more info here.
+* The full version of Bark requires around 12Gb of memory to hold everything on GPU at the same time. However, even smaller cards down to ~2Gb work with some additional settings. Simply add the following code snippet before your generation: 
 
-#### My generated Audio sounds like an 80s phone call, what's happening?
-* Bark generates audio completely from scratch. It is not meant to create only high-quality Studio speech, but rather the output could be anything from a perfect speech to multiple people arguing at a baseball game with a bad microphone.
+```python
+import os
+os.environ["SUNO_OFFLOAD_CPU"] = True
+os.environ["SUNO_USE_SMALL_MODELS"] = True
+```
+
+#### My generated audio sounds like a 1980s phone call. What's happening?
+* Bark generates audio from scratch. It is not meant to create only high-fidelity, studio-quality speech. Rather, outputs could be anything from perfect speech to multiple people arguing at a baseball game recorded with bad microphones.
