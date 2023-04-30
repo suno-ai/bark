@@ -26,7 +26,7 @@ Bark was developed for research purposes. It is not a conventional text-to-speec
 ## 🚀 Updates
 
 **2023.05.01**
-- ©️ Bark is now licensed under the MIT License. It's now available for commercial use!
+- ©️ Bark is now licensed under the MIT License. It's now available for commercial use! If you are interested in a hosted API, please fill out our [waitlist](https://3os84zs17th.typeform.com/suno-studio). 
 - ⚡ 2x speed-up on GPU. 10x speed-up on CPU. We also added an option for a smaller version of Bark, which offers additional speed-up with the trade-off of slightly lower quality. 
 - 💾 You can now use Bark with GPUs that have low VRAM (<4GB). 
 - 👥 We created a prompt library, which you can find [here](https://suno-ai.notion.site/9c5b93f57ece4e68b54808bce7b72fc8?v=89c0127caf9b4892ad1828fd467dcfff). We hope this resource will help you find useful prompts for your use cases! You can also join us on [Discord](https://discord.gg/J2B2vsjKuE), where the community actively shares and discusses prompts in the **#audio-prompts** channel.  
