@@ -32,6 +32,9 @@ Bark was developed for research purposes. It is not a conventional text-to-speec
 - 👥 We created a prompt library, which you can find [here](https://suno-ai.notion.site/9c5b93f57ece4e68b54808bce7b72fc8?v=89c0127caf9b4892ad1828fd467dcfff). We hope this resource will help you find useful prompts for your use cases! You can also join us on [Discord](https://discord.gg/J2B2vsjKuE), where the community actively shares and discusses prompts in the **#audio-prompts** channel.  
 - 📕 We created tutorials folders - including guides for long-form generation, removing background noise and voice consistency enhancements.  
 
+**2023.04.20**
+- 🐶 Bark Release!
+
 To preview new features and get help, join our community here:
 
 [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE)](https://discord.gg/J2B2vsjKuE)
