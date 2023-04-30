@@ -1,5 +1,14 @@
 # Example Prompts Data
 
+## Version Two
+The `v2` prompts are better engineered to follow text with a consistent voice.
+To use them, simply include `v2` in the prompt. For example
+```python
+from bark import generate_audio
+text_prompt = "madam I'm adam"
+audio_array = generate_audio(text_prompt, history_prompt="v2/en_speaker_1")
+```
+
 The provided data is in the .npz format, which is a file format used in Python for storing arrays and data. The data contains three arrays: semantic_prompt, coarse_prompt, and fine_prompt.
 
 ```semantic_prompt```
