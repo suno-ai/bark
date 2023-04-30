@@ -72,7 +72,7 @@ Audio(audio_array, rate=SAMPLE_RATE)
 
 </details>
 
-<details>
+<details open>
   <summary>🌎 Foreign Language</summary>
 <br>
 Bark supports various languages out-of-the-box and automatically determines language from input text. When prompted with code-switched text, Bark will attempt to employ the native accent for the respective languages. English quality is best for the time being, and we expect other languages to further improve with scaling. 
@@ -92,7 +92,7 @@ audio_array = generate_audio(text_prompt)
 
 </details>
 
-<details>
+<details open>
   <summary>🎶 Music</summary>
 <br>
 Bark can generate all types of audio, and, in principle, doesn't see a difference between speech and music. Sometimes Bark chooses to generate text as music, but you can help it out by adding music notes around your lyrics.
@@ -108,15 +108,13 @@ audio_array = generate_audio(text_prompt)
 [lion.webm](https://user-images.githubusercontent.com/5068315/230684766-97f5ea23-ad99-473c-924b-66b6fab24289.webm)
 </details>
 
-<details>
+<details open>
 <summary>🎤 Voice Presets</summary>
 <br>
   
-Bark supports 100+ speaker presets. You can browse the library of speaker presets [here](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c), or in the [code](bark/assets/prompts).
-  
-The community also often shares presets in [Discord](https://discord.gg/J2B2vsjKuE). Bark does not currently support voice cloning.
+Bark supports 100+ speaker presets across [supported languages](#supported-languages). You can browse the library of speaker presets [here](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c), or in the [code](bark/assets/prompts). The community also often shares presets in [Discord](https://discord.gg/J2B2vsjKuE).
 
-Bark tries to match the tone, pitch, emotion and prosody of a given preset. The model also attempts to preserve music, ambient noise, etc. from a preset.
+Bark tries to match the tone, pitch, emotion and prosody of a given preset, but does not currently support voice cloning. The model also attempts to preserve music, ambient noise, etc.
 <br>
 <br>
 
@@ -174,7 +172,7 @@ Below is a list of some known non-speech sounds, but we are finding more every d
 - CAPITALIZATION for emphasis of a word
 - `[MAN]` and `[WOMAN]` to bias Bark towards male and female speakers, respectively
 
-**Supported Languages**
+### Supported Languages
 
 | Language | Status |
 | --- | --- |
@@ -228,7 +226,7 @@ If you are interested, you can sign up for early access [here](https://3os84zs17
 * Bark is a GPT-style model. As such, it may take some creative liberties in its generations, resulting in higher-variance model outputs than traditional text-to-speech approaches.
 
 #### What voices are supported by Bark?  
-* Bark supports 100+ speaker presets. You can browse the library of speaker presets [here](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c). The community also shares presets in [Discord](https://discord.gg/J2B2vsjKuE). Bark does not currently support voice cloning.
+* Bark supports 100+ speaker presets across [supported languages](#supported-languages). You can browse the library of speaker presets [here](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c). The community also shares presets in [Discord](https://discord.gg/J2B2vsjKuE). Bark does not currently support voice cloning.
 
 #### How much VRAM do I need?
 * The full version of Bark requires around 12Gb of memory to hold everything on GPU at the same time. However, even smaller cards down to ~2Gb work with some additional settings. Simply add the following code snippet before your generation: 
