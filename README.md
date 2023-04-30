@@ -6,13 +6,12 @@
 
 [Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) • [Suno Studio Waitlist](https://3os84zs17th.typeform.com/suno-studio) • [Updates](#-updates) • [Usage Examples](#-usage-in-python) • [Installation](#-installation) • [FAQ](#-faq)
 
-[//]: <> (vertical spaces around image)
-##
+[//]: <br> (vertical spaces around image)
+<br>
 <p align="center">
 <img src="https://user-images.githubusercontent.com/5068315/235310676-a4b3b511-90ec-4edf-8153-7ccf14905d73.png" width="500"></img>
 </p>
-
-##
+<br>
 
 Bark is a transformer-based text-to-audio model created by [Suno](https://suno.ai). Bark can generate highly realistic, multilingual speech as well as other audio - including music, background noise and simple sound effects. The model can also produce nonverbal communications like laughing, sighing and crying. To support the research community, we are providing access to pretrained model checkpoints, which are ready for inference and available for commercial use.
 
