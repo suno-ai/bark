@@ -222,7 +222,7 @@ If you are interested, you can sign up for early access [here](https://3os84zs17
 * Bark is a GPT-style model. As such, it may take some creative liberties in its generations, resulting in higher-variance model outputs than traditional text-to-speech approaches.
 
 #### Voice Cloning 
-* Bark can theoretically clone voices with only a few seconds of input audio. Given the potential misuse of that technology we limit the public release to work with prompts generated de-novo via Bark and a limited set of Suno provided prompts. See more in the tutorials section here.
+* Bark can theoretically clone voices with only a few seconds of input audio. Given the potential misuse of that technology we limit the public release to work with voice presets generated de-novo using Bark. See more in the tutorials section here.
 
 #### How much VRAM do I need?
 * The full version of Bark requires around 12Gb of memory to hold everything on GPU at the same time. However even smaller cards down to ~2Gb work with some additional settings, see more info here.
