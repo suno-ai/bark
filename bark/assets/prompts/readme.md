@@ -9,6 +9,7 @@ text_prompt = "madam I'm adam"
 audio_array = generate_audio(text_prompt, history_prompt="v2/en_speaker_1")
 ```
 
+## Prompt Format
 The provided data is in the .npz format, which is a file format used in Python for storing arrays and data. The data contains three arrays: semantic_prompt, coarse_prompt, and fine_prompt.
 
 ```semantic_prompt```
