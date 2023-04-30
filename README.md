@@ -166,8 +166,8 @@ Below is a list of some known non-speech sounds, but we are finding more every d
 - `[clears throat]`
 - `—` or `...` for hesitations
 - `♪` for song lyrics
-- capitalization for emphasis of a word
-- `MAN/WOMAN:` for bias towards speaker
+- CAPITALIZATION for emphasis of a word
+- `[MAN]` and `[WOMAN]` to bias Bark towards male and female speakers, respectively
 
 **Supported Languages**
 
@@ -187,13 +187,13 @@ Below is a list of some known non-speech sounds, but we are finding more every d
 | Turkish (tr) | ✅ |
 | Chinese, simplified (zh) | ✅ |
 
-Requests for future language support [here](https://github.com/suno-ai/bark/discussions/111).
+Requests for future language support [here](https://github.com/suno-ai/bark/discussions/111) or in the **#forums** channel on [Discord](https://discord.com/invite/J2B2vsjKuE). 
 
 ## 🙏 Appreciation
 
 - [nanoGPT](https://github.com/karpathy/nanoGPT) for a dead-simple and blazing fast implementation of GPT-style models
 - [EnCodec](https://github.com/facebookresearch/encodec) for a state-of-the-art implementation of a fantastic audio codec
-- [AudioLM](https://github.com/lucidrains/audiolm-pytorch) for very related training and inference code
+- [AudioLM](https://github.com/lucidrains/audiolm-pytorch) for related training and inference code
 - [Vall-E](https://arxiv.org/abs/2301.02111), [AudioLM](https://arxiv.org/abs/2209.03143) and many other ground-breaking papers that enabled the development of Bark
 
 ## © License
