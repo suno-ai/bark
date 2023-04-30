@@ -4,7 +4,7 @@
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/OnusFM.svg?style=social&label=@OnusFM)](https://twitter.com/OnusFM)
 <a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" /></a>
 
-[Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) • [Model Card](./model-card.md) • [Studio Waitlist](https://3os84zs17th.typeform.com/suno-studio)
+[Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) • [Model Card](./model-card.md) • [Studio Waitlist](https://3os84zs17th.typeform.com/suno-studio) • [Updates](#-updates) • [Usage](#-usage-in-python) • [Installation](#-installation) • [FAQ](#-faq)
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/5068315/235310676-a4b3b511-90ec-4edf-8153-7ccf14905d73.png" width="500"></img>
@@ -18,7 +18,6 @@ Try Bark here!
 [![Open on Replicate](https://img.shields.io/badge/®️-Open%20on%20Replicate-blue.svg)](https://replicate.com/suno-ai/bark)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1eJfA2XUa-mXwdMy7DoYKVYHI1iTd9Vkt?usp=sharing)
 
-[Updates](#-updates) • [Usage](#-usage-in-python) • [Installation](#-installation) • [FAQ](#-faq)
 
 ## ⚠ Disclaimer
 Bark was developed for research purposes. It is not a conventional text-to-speech model but instead a fully generative text-to-audio model, which can deviate in unexpected ways from provided prompts. Suno does not take responsibility for any output generated. Use at your own risk, and please act responsibly.
@@ -33,7 +32,7 @@ Bark was developed for research purposes. It is not a conventional text-to-speec
 - 📕 We created tutorials folders - including guides for long-form generation, removing background noise and voice consistency enhancements.  
 
 **2023.04.20**
-- 🐶 Bark Release!
+- 🐶 Bark release!
 
 To preview new features and get help, join our community here:
 
