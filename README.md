@@ -29,16 +29,16 @@ Bark was developed for research purposes. It is not a conventional text-to-speec
 **2023.05.01**
 - ©️ Bark is now licensed under the MIT License, meaning it's now available for commercial use!  
 - ⚡ 2x speed-up on GPU. 10x speed-up on CPU. We also added an option for a smaller version of Bark, which offers additional speed-up with the trade-off of slightly lower quality. 
-- 💾 You can now use Bark with GPUs that have low VRAM (<4GB). 
-- 👥 We created a prompt library, which you can find [here](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c). We hope this resource helps you find useful prompts for your use cases! You can also join us on [Discord](https://discord.gg/J2B2vsjKuE), where the community actively shares useful prompts in the **#audio-prompts** channel.  
-- 📕 We added more examples in the [notebooks folders](./notebooks) - including guides for long-form generation, voice consistency enhancements, and low-resource generation.  
+- 📕 [Long-form generation](notebooks/long_form_generation.ipynb), voice consistency enhancements and other examples are now documented in a new [notebooks](./notebooks) section.
+- 👥 We created a [voice prompt library](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c). We hope this resource helps you find useful prompts for your use cases! You can also join us on [Discord](https://discord.gg/J2B2vsjKuE), where the community actively shares useful prompts in the **#audio-prompts** channel.  
+- 💬 Growing community support and access to new features here: 
+
+     [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE)](https://discord.gg/J2B2vsjKuE)
+
+- 💾 You can now use Bark with GPUs that have low VRAM (<4GB).
 
 **2023.04.20**
 - 🐶 Bark release!
-
-To preview new features and get help, join our community here:
-
-[![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE)](https://discord.gg/J2B2vsjKuE)
 
 ## 🐍 Usage in Python
 
@@ -234,7 +234,7 @@ If you are interested, you can sign up for early access [here](https://3os84zs17
 ## ❓ FAQ
 
 #### How do I specify where models are downloaded and cached?
-* Bark uses Hugging face to download and store models. You can see find more info [here](https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfhome). 
+* Bark uses Hugging Face to download and store models. You can see find more info [here](https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfhome). 
 
 
 #### Bark's generations sometimes differ from my prompts. What's happening?
