@@ -126,12 +126,12 @@ audio_array = generate_audio(text_prompt, history_prompt="v2/en_speaker_1")
 [sloth.webm](https://user-images.githubusercontent.com/5068315/230684883-a344c619-a560-4ff5-8b99-b4463a34487b.webm)
 </details>
 
-### Longer Generations
+### Generating Longer Audio
   
 By default, `generate_audio` works well with around 13 seconds of spoken text. For an example of how to do long-form generation, see this [example notebook](notebooks/long_form_generation.ipynb).
 
 <details>
-<summary>Example long-form generations</summary>
+<summary>Click to toggle example long-form generations (from the example notebook)</summary>
 
 [dialog.webm](https://user-images.githubusercontent.com/2565833/235463539-f57608da-e4cb-4062-8771-148e29512b01.webm)
 
