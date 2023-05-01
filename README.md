@@ -31,7 +31,7 @@ Bark was developed for research purposes. It is not a conventional text-to-speec
 - ⚡ 2x speed-up on GPU. 10x speed-up on CPU. We also added an option for a smaller version of Bark, which offers additional speed-up with the trade-off of slightly lower quality. 
 - 💾 You can now use Bark with GPUs that have low VRAM (<4GB). 
 - 👥 We created a prompt library, which you can find [here](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c). We hope this resource helps you find useful prompts for your use cases! You can also join us on [Discord](https://discord.gg/J2B2vsjKuE), where the community actively shares useful prompts in the **#audio-prompts** channel.  
-- 📕 We created tutorials folders - including guides for long-form generation, removing background noise and voice consistency enhancements.  
+- 📕 We added more examples in the [notebooks folders](./notebooks) - including guides for long-form generation, voice consistency enhancements, and low-resource generation.  
 
 **2023.04.20**
 - 🐶 Bark release!
