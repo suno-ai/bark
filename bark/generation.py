@@ -1,9 +1,7 @@
 import contextlib
 import gc
-import hashlib
 import os
 import re
-import requests
 
 from encodec import EncodecModel
 import funcy
@@ -72,8 +70,9 @@ SUPPORTED_LANGS = [
 
 ALLOWED_PROMPTS = {"announcer"}
 for _, lang in SUPPORTED_LANGS:
-    for n in range(10):
-        ALLOWED_PROMPTS.add(f"{lang}_speaker_{n}")
+    for prefix in ("", f"v2{os.path.sep}"):
+        for n in range(10):
+            ALLOWED_PROMPTS.add(f"{prefix}{lang}_speaker_{n}")
 
 
 logger = logging.getLogger(__name__)
@@ -95,32 +94,26 @@ REMOTE_MODEL_PATHS = {
     "text_small": {
         "repo_id": "suno/bark",
         "file_name": "text.pt",
-        "checksum": "b3e42bcbab23b688355cd44128c4cdd3",
     },
     "coarse_small": {
         "repo_id": "suno/bark",
         "file_name": "coarse.pt",
-        "checksum": "5fe964825e3b0321f9d5f3857b89194d",
     },
     "fine_small": {
         "repo_id": "suno/bark",
         "file_name": "fine.pt",
-        "checksum": "5428d1befe05be2ba32195496e58dc90",
     },
     "text": {
         "repo_id": "suno/bark",
         "file_name": "text_2.pt",
-        "checksum": "54afa89d65e318d4f5f80e8e8799026a",
     },
     "coarse": {
         "repo_id": "suno/bark",
         "file_name": "coarse_2.pt",
-        "checksum": "8a98094e5e3a255a5c9c0ab7efe8fd28",
     },
     "fine": {
         "repo_id": "suno/bark",
         "file_name": "fine_2.pt",
-        "checksum": "59d184ed44e3650774a2f0503a48a97b",
     },
 }
 
@@ -130,26 +123,6 @@ if not hasattr(torch.nn.functional, 'scaled_dot_product_attention') and torch.cu
         "torch version does not support flash attention. You will get faster" +
         " inference speed by upgrade torch to newest nightly version."
     )
-
-
-def _string_md5(s):
-    m = hashlib.md5()
-    m.update(s.encode("utf-8"))
-    return m.hexdigest()
-
-
-def _md5(fname):
-    hash_md5 = hashlib.md5()
-    with open(fname, "rb") as f:
-        for chunk in iter(lambda: f.read(4096), b""):
-            hash_md5.update(chunk)
-    return hash_md5.hexdigest()
-
-
-def _get_ckpt_path(model_type, use_small=False):
-    model_key = f"{model_type}_small" if use_small or USE_SMALL_MODELS else model_type
-    model_name = _string_md5(REMOTE_MODEL_PATHS[model_key]["file_name"])
-    return os.path.join(CACHE_DIR, f"{model_name}.pt")
 
 
 def _grab_best_device(use_gpu=True):
@@ -162,11 +135,17 @@ def _grab_best_device(use_gpu=True):
     return device
 
 
-def _download(from_hf_path, file_name, to_local_path):
+def _get_ckpt_path(model_type, use_small=False):
+    key = model_type
+    if use_small:
+        key += "_small"
+    return os.path.join(CACHE_DIR, REMOTE_MODEL_PATHS[key]["file_name"])
+
+
+def _download(from_hf_path, file_name):
     os.makedirs(CACHE_DIR, exist_ok=True)
-    destination_file_name = to_local_path.split("/")[-1]
     hf_hub_download(repo_id=from_hf_path, filename=file_name, local_dir=CACHE_DIR)
-    os.replace(os.path.join(CACHE_DIR, file_name), to_local_path)
+
 
 class InferenceContext:
     def __init__(self, benchmark=False):
@@ -223,15 +202,9 @@ def _load_model(ckpt_path, device, use_small=False, model_type="text"):
         raise NotImplementedError()
     model_key = f"{model_type}_small" if use_small or USE_SMALL_MODELS else model_type
     model_info = REMOTE_MODEL_PATHS[model_key]
-    if (
-        os.path.exists(ckpt_path) and
-        _md5(ckpt_path) != model_info["checksum"]
-    ):
-        logger.warning(f"found outdated {model_type} model, removing.")
-        os.remove(ckpt_path)
     if not os.path.exists(ckpt_path):
         logger.info(f"{model_type} model not found, downloading into `{CACHE_DIR}`.")
-        _download(model_info["repo_id"], model_info["file_name"], ckpt_path)
+        _download(model_info["repo_id"], model_info["file_name"])
     checkpoint = torch.load(ckpt_path, map_location=device)
     # this is a hack
     model_args = checkpoint["model_args"]
@@ -376,6 +349,25 @@ TEXT_PAD_TOKEN = 129_595
 SEMANTIC_INFER_TOKEN = 129_599
 
 
+def _load_history_prompt(history_prompt_input):
+    if isinstance(history_prompt_input, str) and history_prompt_input.endswith(".npz"):
+        history_prompt = np.load(history_prompt_input)
+    elif isinstance(history_prompt_input, str):
+        if history_prompt_input not in ALLOWED_PROMPTS:
+            raise ValueError("history prompt not found")
+        history_prompt = np.load(
+            os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt_input}.npz")
+        )
+    elif isinstance(history_prompt_input, dict):
+        assert("semantic_prompt" in history_prompt_input)
+        assert("coarse_prompt" in history_prompt_input)
+        assert("fine_prompt" in history_prompt_input)
+        history_prompt = history_prompt_input
+    else:
+        raise ValueError("history prompt format unrecognized")
+    return history_prompt
+
+
 def generate_text_semantic(
     text,
     history_prompt=None,
@@ -393,13 +385,8 @@ def generate_text_semantic(
     text = _normalize_whitespace(text)
     assert len(text.strip()) > 0
     if history_prompt is not None:
-        if history_prompt.endswith(".npz"):
-            semantic_history = np.load(history_prompt)["semantic_prompt"]
-        else:
-            assert (history_prompt in ALLOWED_PROMPTS)
-            semantic_history = np.load(
-                os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
-            )["semantic_prompt"]
+        history_prompt = _load_history_prompt(history_prompt)
+        semantic_history = history_prompt["semantic_prompt"]
         assert (
             isinstance(semantic_history, np.ndarray)
             and len(semantic_history.shape) == 1
@@ -562,15 +549,9 @@ def generate_coarse(
     semantic_to_coarse_ratio = COARSE_RATE_HZ / SEMANTIC_RATE_HZ * N_COARSE_CODEBOOKS
     max_semantic_history = int(np.floor(max_coarse_history / semantic_to_coarse_ratio))
     if history_prompt is not None:
-        if history_prompt.endswith(".npz"):
-            x_history = np.load(history_prompt)
-        else:
-            assert (history_prompt in ALLOWED_PROMPTS)
-            x_history = np.load(
-                os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
-            )
-        x_semantic_history = x_history["semantic_prompt"]
-        x_coarse_history = x_history["coarse_prompt"]
+        history_prompt = _load_history_prompt(history_prompt)
+        x_semantic_history = history_prompt["semantic_prompt"]
+        x_coarse_history = history_prompt["coarse_prompt"]
         assert (
             isinstance(x_semantic_history, np.ndarray)
             and len(x_semantic_history.shape) == 1
@@ -727,13 +708,8 @@ def generate_fine(
         and x_coarse_gen.max() <= CODEBOOK_SIZE - 1
     )
     if history_prompt is not None:
-        if history_prompt.endswith(".npz"):
-            x_fine_history = np.load(history_prompt)["fine_prompt"]
-        else:
-            assert (history_prompt in ALLOWED_PROMPTS)
-            x_fine_history = np.load(
-                os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
-            )["fine_prompt"]
+        history_prompt = _load_history_prompt(history_prompt)
+        x_fine_history = history_prompt["fine_prompt"]
         assert (
             isinstance(x_fine_history, np.ndarray)
             and len(x_fine_history.shape) == 2
