@@ -353,6 +353,8 @@ def _load_history_prompt(history_prompt_input):
     if isinstance(history_prompt_input, str) and history_prompt_input.endswith(".npz"):
         history_prompt = np.load(history_prompt_input)
     elif isinstance(history_prompt_input, str):
+        # make sure this works on non-ubuntu
+        history_prompt_input = os.path.join(*history_prompt_input.split("/"))
         if history_prompt_input not in ALLOWED_PROMPTS:
             raise ValueError("history prompt not found")
         history_prompt = np.load(
