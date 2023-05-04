@@ -85,9 +85,13 @@ default_cache_dir = os.path.join(os.path.expanduser("~"), ".cache")
 CACHE_DIR = os.path.join(os.getenv("XDG_CACHE_HOME", default_cache_dir), "suno", "bark_v0")
 
 
-USE_SMALL_MODELS = bool(os.environ.get("SUNO_USE_SMALL_MODELS", False))
-GLOBAL_ENABLE_MPS = bool(os.environ.get("SUNO_ENABLE_MPS", False))
-OFFLOAD_CPU = bool(os.environ.get("SUNO_OFFLOAD_CPU", False))
+def _cast_bool_env_var(s):
+    return s.lower() in ('true', '1', 't')
+
+
+USE_SMALL_MODELS = _cast_bool_env_var(os.environ.get("SUNO_USE_SMALL_MODELS", "False"))
+GLOBAL_ENABLE_MPS = _cast_bool_env_var(os.environ.get("SUNO_ENABLE_MPS", "False"))
+OFFLOAD_CPU = _cast_bool_env_var(os.environ.get("SUNO_OFFLOAD_CPU", "False"))
 
 
 REMOTE_MODEL_PATHS = {
