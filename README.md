@@ -158,6 +158,14 @@ cd bark && pip install .
 ```
 *Note: Do NOT use 'pip install bark'. It installs a different package, which is not managed by Suno.*
 
+Additionally, you may need to activate virtualenv for examples to work correctly by running the following commands:
+
+```
+virtualenv venv
+source venv/bin/activate
+pip install .
+pip3 install ipython
+```
 
 ## 🛠️ Hardware and Inference Speed
 
