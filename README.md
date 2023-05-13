@@ -131,9 +131,6 @@ Bark supports 100+ speaker presets across [supported languages](#supported-langu
 
 > Bark tries to match the tone, pitch, emotion and prosody of a given preset, but does not currently support custom voice cloning. The model also attempts to preserve music, ambient noise, etc.
 
-<br>
-<br>
-
 ```python
 text_prompt = """
     I have a silky smooth voice, and today I will tell you about 
