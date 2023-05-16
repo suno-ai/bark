@@ -159,6 +159,43 @@ By default, `generate_audio` works well with around 13 seconds of spoken text. F
 
 
 
+### 13 Seconds Output Bypass
+
+
+```from bark import generate_audio,preload_models
+from scipy.io.wavfile import write as write_wav
+import numpy as np
+import nltk
+
+nltk.download('punkt')
+preload_models()
+
+long_string = """
+Bark is a transformer-based text-to-audio model created by Suno. Bark can generate highly realistic,
+multilingual speech as well as other audio - including music, background noise and simple sound effects.
+The model can also produce nonverbal communications like laughing, sighing and crying.
+To support the research community, we are providing access to pretrained model checkpoints ready for inference.
+"""
+text_prompts_list = nltk.sent_tokenize(long_string)
+
+# Set up history prompt
+history_prompt = "en_speaker_1"
+
+# Set up sample rate
+SAMPLE_RATE = 22050
+
+# Generate audio for each prompt
+audio_arrays = []
+for prompt in text_prompts_list:
+    audio_array = generate_audio(prompt, history_prompt=history_prompt)
+    audio_arrays.append(audio_array)
+
+# Combine the audio files
+combined_audio = np.concatenate(audio_arrays)
+
+# Write the combined audio to a file
+write_wav("combined_audio.wav", SAMPLE_RATE, combined_audio)
+```
 
 ## 💻 Installation
 *‼️ CAUTION ‼️ Do NOT use `pip install bark`. It installs a different package, which is not managed by Suno.*
