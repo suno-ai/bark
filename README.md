@@ -158,7 +158,10 @@ By default, `generate_audio` works well with around 13 seconds of spoken text. F
 </details>
 
 
-
+## Command line
+```commandline
+python -m bark --text "Hello, my name is Suno." --output_filename "example.wav"
+```
 
 ## 💻 Installation
 *‼️ CAUTION ‼️ Do NOT use `pip install bark`. It installs a different package, which is not managed by Suno.*
