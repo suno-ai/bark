@@ -184,7 +184,7 @@ def _clear_cuda_cache():
 
 def clean_models(model_key=None):
     global models
-    model_keys = [model_key] if model_key is not None else models.keys()
+    model_keys = [model_key] if model_key is not None else list(models.keys())
     for k in model_keys:
         if k in models:
             del models[k]
