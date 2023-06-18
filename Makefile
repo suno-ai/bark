@@ -1,5 +1,5 @@
 # Variables
-ENV_NAME := prompt
+ENV_NAME := bark
 PYTHON3 := python3.11
 
 # Targets
