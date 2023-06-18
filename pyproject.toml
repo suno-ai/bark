@@ -46,6 +46,7 @@ dev = [
     "pylint",
     "pytest",
     "pytest-cov",
+    "pip-tools"
 ]
 
 [tool.setuptools]
