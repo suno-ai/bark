@@ -446,7 +446,7 @@ def generate_text_semantic(
         x = x.to(device)
         n_tot_steps = 768
         # custom tqdm updates since we don't know when eos will occur
-        pbar = tqdm.tqdm(disable=silent, total=100)
+        pbar = tqdm.tqdm(disable=silent, total=n_tot_steps)
         pbar_state = 0
         tot_generated_duration_s = 0
         kv_cache = None
@@ -486,21 +486,25 @@ def generate_text_semantic(
                 or (min_eos_p is not None and probs[-1] >= min_eos_p)
             ):
                 # eos found, so break
-                pbar.update(100 - pbar_state)
+                pbar.update(n - pbar_state)
                 break
             x = torch.cat((x, item_next[None]), dim=1)
             tot_generated_duration_s += 1 / SEMANTIC_RATE_HZ
             if max_gen_duration_s is not None and tot_generated_duration_s > max_gen_duration_s:
-                pbar.update(100 - pbar_state)
+                pbar.update(n - pbar_state)
                 break
             if n == n_tot_steps - 1:
-                pbar.update(100 - pbar_state)
+                pbar.update(n - pbar_state)
                 break
             del logits, relevant_logits, probs, item_next
-            req_pbar_state = np.min([100, int(round(100 * n / n_tot_steps))])
-            if req_pbar_state > pbar_state:
-                pbar.update(req_pbar_state - pbar_state)
-            pbar_state = req_pbar_state
+
+            if n > pbar_state:
+                if n > pbar.total:
+                    pbar.total = n
+                pbar.update(n - pbar_state)
+            pbar_state = n
+        pbar.total = n
+        pbar.refresh()
         pbar.close()
         out = x.detach().cpu().numpy().squeeze()[256 + 256 + 1 :]
     if OFFLOAD_CPU:
