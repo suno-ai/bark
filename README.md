@@ -269,8 +269,8 @@ If you are interested, you can sign up for early access [here](https://3os84zs17
 
 ```python
 import os
-os.environ["SUNO_OFFLOAD_CPU"] = True
-os.environ["SUNO_USE_SMALL_MODELS"] = True
+os.environ["SUNO_OFFLOAD_CPU"] = "True"
+os.environ["SUNO_USE_SMALL_MODELS"] = "True"
 ```
 
 #### My generated audio sounds like a 1980s phone call. What's happening?
