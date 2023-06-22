@@ -27,7 +27,7 @@ def text_to_semantic(
         history_prompt=history_prompt,
         temp=temp,
         silent=silent,
-        use_kv_caching=True
+        use_kv_caching=False
     )
     return x_semantic
 
