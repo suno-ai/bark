@@ -177,6 +177,56 @@ cd bark && pip install .
 ```
 
 
+## 🤗 Transformers Usage
+
+Bark is available in the 🤗 Transformers library from version 4.31.0 onwards, requiring minimal dependencies 
+and additional packages. Steps to get started:
+
+1. First install the 🤗 [Transformers library](https://github.com/huggingface/transformers) from main:
+
+```
+pip install git+https://github.com/huggingface/transformers.git
+```
+
+2. Run the following Python code to generate speech samples:
+
+```py
+from transformers import AutoProcessor, BarkModel
+
+processor = AutoProcessor.from_pretrained("suno/bark")
+model = BarkModel.from_pretrained("suno/bark")
+
+voice_preset = "v2/en_speaker_6"
+
+inputs = processor("Hello, my dog is cute", voice_preset=voice_preset)
+
+audio_array = model.generate_speech(**inputs)
+audio_array = audio_array.cpu().numpy().squeeze()
+```
+
+3. Listen to the audio samples either in an ipynb notebook:
+
+```py
+from IPython.display import Audio
+
+sample_rate = model.generation_config.sample_rate
+Audio(audio_array, rate=sample_rate)
+```
+
+Or save them as a `.wav` file using a third-party library, e.g. `scipy`:
+
+```py
+import scipy
+
+sample_rate = model.generation_config.sample_rate
+scipy.io.wavfile.write("bark_out.wav", rate=sample_rate, data=audio_array)
+```
+
+For more details on using the Bark model for inference using the 🤗 Transformers library, refer to the 
+[Bark docs](https://huggingface.co/docs/transformers/main/en/model_doc/bark) or the hands-on 
+[Google Colab](https://colab.research.google.com/drive/1dWWkZzvu7L9Bunq9zvD-W02RFUXoW-Pd?usp=sharing).
+
+
 ## 🛠️ Hardware and Inference Speed
 
 Bark has been tested and works on both CPU and GPU (`pytorch 2.0+`, CUDA 11.7 and CUDA 12.0).
