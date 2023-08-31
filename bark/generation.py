@@ -538,6 +538,7 @@ def generate_coarse(
     max_coarse_history=630,  # min 60 (faster), max 630 (more context)
     sliding_window_len=60,
     use_kv_caching=False,
+    max_gen_duration_s=None,
 ):
     """Generate coarse audio codes from semantic tokens."""
     assert (
@@ -605,6 +606,17 @@ def generate_coarse(
             * N_COARSE_CODEBOOKS
         )
     )
+    
+    if max_gen_duration_s is not None:
+        n_steps = min(
+            n_steps,
+            int(
+                np.floor(
+                    round(max_gen_duration_s * COARSE_RATE_HZ)
+                ) * N_COARSE_CODEBOOKS
+            )
+        )
+
     assert n_steps > 0 and n_steps % N_COARSE_CODEBOOKS == 0
     x_semantic = np.hstack([x_semantic_history, x_semantic]).astype(np.int32)
     x_coarse = x_coarse_history.astype(np.int32)
