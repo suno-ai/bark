@@ -1,7 +1,7 @@
 # 🐶 Bark
 
 [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE?style=flat&compact=True)](https://discord.gg/J2B2vsjKuE)
-[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/OnusFM.svg?style=social&label=@OnusFM)](https://twitter.com/OnusFM)
+[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/FM.svg?style=social&label=@suno_ai_)](https://twitter.com/suno_ai_)
 <a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" /></a>
 
 > 🔗 [Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) • [Suno Studio Waitlist](https://suno-ai.typeform.com/suno-studio) • [Updates](#-updates) • [How to Use](#-usage-in-python) • [Installation](#-installation) • [FAQ](#-faq)
@@ -290,7 +290,7 @@ Please contact us at 📧 [bark@suno.ai](mailto:bark@suno.ai) to request access 
 
 ## 📱 Community
 
-- [Twitter](https://twitter.com/OnusFM)
+- [Twitter](https://twitter.com/FM)
 - [Discord](https://discord.gg/J2B2vsjKuE)
 
 ## 🎧 Suno Studio (Early Access)
