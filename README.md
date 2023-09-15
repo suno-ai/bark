@@ -1,6 +1,4 @@
->Notice: \
->Bark is Suno's Open Source Text-to-Speech++ model. \
->If you are looking for our new music generation model 🐥 Chirp, have a look at our [🎶 Examples](https://suno.ai/examples/chirp-v1) and join us on [Discord](https://discord.gg/J2B2vsjKuE)
+> Notice: Bark is Suno's open-source text-to-speech+ model. If you are looking for our new text-to-music model, Chirp, have a look at our [Bark Examples Page](https://suno.ai/examples/chirp-v1) and join us on [Discord](https://suno.ai/discord). 
 
      
 # 🐶 Bark
@@ -8,7 +6,7 @@
 [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE?style=flat&compact=True)](https://discord.gg/J2B2vsjKuE)
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/FM.svg?style=social&label=@suno_ai_)](https://twitter.com/suno_ai_)
 
-> 🔗 [Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2) • [Suno Studio Waitlist](https://suno-ai.typeform.com/suno-studio) • [Updates](#-updates) • [How to Use](#-usage-in-python) • [Installation](#-installation) • [FAQ](#-faq)
+> 🔗 [Examples](https://suno.ai/examples/bark-v0) • [Suno Studio Waitlist](https://suno-ai.typeform.com/suno-studio) • [Updates](#-updates) • [How to Use](#-usage-in-python) • [Installation](#-installation) • [FAQ](#-faq)
 
 [//]: <br> (vertical spaces around image)
 <br>
