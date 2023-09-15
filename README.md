@@ -299,7 +299,7 @@ Please contact us at 📧 [bark@suno.ai](mailto:bark@suno.ai) to request access 
 
 We’re developing a playground for our models, including Bark. 
 
-If you are interested, you can sign up for early access [here](https://3os84zs17th.typeform.com/suno-studio).
+If you are interested, you can sign up for early access [here](https://suno-ai.typeform.com/suno-studio).
 
 ## ❓ FAQ
 
