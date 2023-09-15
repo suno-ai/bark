@@ -1,4 +1,4 @@
-> Notice: Bark is Suno's open-source text-to-speech+ model. If you are looking for our new text-to-music model, Chirp, have a look at our [Bark Examples Page](https://suno.ai/examples/chirp-v1) and join us on [Discord](https://suno.ai/discord). 
+> Notice: Bark is Suno's open-source text-to-speech+ model. If you are looking for our new text-to-music model, Chirp, have a look at our [Bark Examples Page](https://suno.ai/examples/bark-v0) and join us on [Discord](https://suno.ai/discord). 
 
      
 # 🐶 Bark
@@ -39,10 +39,10 @@ Bark was developed for research purposes. It is not a conventional text-to-speec
 - ©️ Bark is now licensed under the MIT License, meaning it's now available for commercial use!  
 - ⚡ 2x speed-up on GPU. 10x speed-up on CPU. We also added an option for a smaller version of Bark, which offers additional speed-up with the trade-off of slightly lower quality. 
 - 📕 [Long-form generation](notebooks/long_form_generation.ipynb), voice consistency enhancements and other examples are now documented in a new [notebooks](./notebooks) section.
-- 👥 We created a [voice prompt library](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c). We hope this resource helps you find useful prompts for your use cases! You can also join us on [Discord](https://discord.gg/J2B2vsjKuE), where the community actively shares useful prompts in the **#audio-prompts** channel.  
+- 👥 We created a [voice prompt library](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c). We hope this resource helps you find useful prompts for your use cases! You can also join us on [Discord](https://suno.ai/discord), where the community actively shares useful prompts in the **#audio-prompts** channel.  
 - 💬 Growing community support and access to new features here: 
 
-     [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE)](https://discord.gg/J2B2vsjKuE)
+     [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE)](https://suno.ai/discord)
 
 - 💾 You can now use Bark with GPUs that have low VRAM (<4GB).
 
@@ -238,13 +238,13 @@ On enterprise GPUs and PyTorch nightly, Bark can generate audio in roughly real-
 The full version of Bark requires around 12GB of VRAM to hold everything on GPU at the same time. 
 To use a smaller version of the models, which should fit into 8GB VRAM, set the environment flag `SUNO_USE_SMALL_MODELS=True`.
 
-If you don't have hardware available or if you want to play with bigger versions of our models, you can also sign up for early access to our model playground [here](https://3os84zs17th.typeform.com/suno-studio).
+If you don't have hardware available or if you want to play with bigger versions of our models, you can also sign up for early access to our model playground [here](https://suno-ai.typeform.com/suno-studio).
 
 ## ⚙️ Details
 
 Bark is fully generative text-to-audio model devolved for research and demo purposes. It follows a GPT style architecture similar to [AudioLM](https://arxiv.org/abs/2209.03143) and [Vall-E](https://arxiv.org/abs/2301.02111) and a quantized Audio representation from [EnCodec](https://github.com/facebookresearch/encodec). It is not a conventional TTS model, but instead a fully generative text-to-audio model capable of deviating in unexpected ways from any given script. Different to previous approaches, the input text prompt is converted directly to audio without the intermediate use of phonemes. It can therefore generalize to arbitrary instructions beyond speech such as music lyrics, sound effects or other non-speech sounds.
 
-Below is a list of some known non-speech sounds, but we are finding more every day. Please let us know if you find patterns that work particularly well on [Discord](https://discord.gg/J2B2vsjKuE)!
+Below is a list of some known non-speech sounds, but we are finding more every day. Please let us know if you find patterns that work particularly well on [Discord](https://suno.ai/discord)!
 
 - `[laughter]`
 - `[laughs]`
@@ -275,7 +275,7 @@ Below is a list of some known non-speech sounds, but we are finding more every d
 | Turkish (tr) | ✅ |
 | Chinese, simplified (zh) | ✅ |
 
-Requests for future language support [here](https://github.com/suno-ai/bark/discussions/111) or in the **#forums** channel on [Discord](https://discord.com/invite/J2B2vsjKuE). 
+Requests for future language support [here](https://github.com/suno-ai/bark/discussions/111) or in the **#forums** channel on [Discord](https://suno.ai/discord). 
 
 ## 🙏 Appreciation
 
@@ -292,8 +292,8 @@ Please contact us at 📧 [bark@suno.ai](mailto:bark@suno.ai) to request access 
 
 ## 📱 Community
 
-- [Twitter](https://twitter.com/FM)
-- [Discord](https://discord.gg/J2B2vsjKuE)
+- [Twitter](https://twitter.com/suno_ai_)
+- [Discord](https://suno.ai/discord)
 
 ## 🎧 Suno Studio (Early Access)
 
@@ -311,7 +311,7 @@ If you are interested, you can sign up for early access [here](https://suno-ai.t
 * Bark is a GPT-style model. As such, it may take some creative liberties in its generations, resulting in higher-variance model outputs than traditional text-to-speech approaches.
 
 #### What voices are supported by Bark?  
-* Bark supports 100+ speaker presets across [supported languages](#supported-languages). You can browse the library of speaker presets [here](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c). The community also shares presets in [Discord](https://discord.gg/J2B2vsjKuE). Bark also supports generating unique random voices that fit the input text. Bark does not currently support custom voice cloning.
+* Bark supports 100+ speaker presets across [supported languages](#supported-languages). You can browse the library of speaker presets [here](https://suno-ai.notion.site/8b8e8749ed514b0cbf3f699013548683?v=bc67cff786b04b50b3ceb756fd05f68c). The community also shares presets in [Discord](https://suno.ai/discord). Bark also supports generating unique random voices that fit the input text. Bark does not currently support custom voice cloning.
 
 #### Why is the output limited to ~13-14 seconds?
 * Bark is a GPT-style model, and its architecture/context window is optimized to output generations with roughly this length.
