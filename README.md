@@ -24,7 +24,7 @@ Bark was developed for research purposes. It is not a conventional text-to-speec
 * [🚀 Updates](#-updates)
 * [💻 Installation](#-installation)
 * [🐍 Usage](#-usage-in-python)
-* [🌀 Live Examples](https://suno-ai.notion.site/Bark-Examples-5edae8b02a604b54a42244ba45ebc2e2)
+* [🌀 Live Examples](https://suno.ai/examples/bark-v0)
 * [❓ FAQ](#-faq)
 
 ## 🎧 Demos  
