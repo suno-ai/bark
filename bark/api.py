@@ -38,6 +38,7 @@ def semantic_to_waveform(
     temp: float = 0.7,
     silent: bool = False,
     output_full: bool = False,
+    max_gen_duration_s=None,
 ):
     """Generate audio array from semantic input.
 
@@ -47,6 +48,7 @@ def semantic_to_waveform(
         temp: generation temperature (1.0 more diverse, 0.0 more conservative)
         silent: disable progress bar
         output_full: return full generation to be used as a history prompt
+        max_gen_duration_s: maximum duration of generated audio in seconds
 
     Returns:
         numpy audio array at sample frequency 24khz
@@ -56,7 +58,8 @@ def semantic_to_waveform(
         history_prompt=history_prompt,
         temp=temp,
         silent=silent,
-        use_kv_caching=True
+        use_kv_caching=True,
+        max_gen_duration_s=max_gen_duration_s,
     )
     fine_tokens = generate_fine(
         coarse_tokens,
