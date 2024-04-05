@@ -1,4 +1,4 @@
-> Notice: Bark is Suno's open-source text-to-speech+ model. If you are looking for our new text-to-music model, Chirp, have a look at our [Chirp Examples Page](https://suno.ai/examples/chirp-v1) and join us on [Discord](https://suno.ai/discord). 
+> Notice: Bark is Suno's open-source text-to-speech+ model. If you are looking for our text-to-music models, please visit us on our [web page](https://suno.ai) and join our community on [Discord](https://suno.ai/discord). 
 
      
 # 🐶 Bark
@@ -287,8 +287,6 @@ Requests for future language support [here](https://github.com/suno-ai/bark/disc
 ## © License
 
 Bark is licensed under the MIT License. 
-
-Please contact us at 📧 [bark@suno.ai](mailto:bark@suno.ai) to request access to a larger version of the model.  
 
 ## 📱 Community
 
