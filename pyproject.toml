@@ -52,8 +52,7 @@ dev = [
 packages = ["bark"]
 
 [tool.setuptools.package-data]
-bark = ["assets/prompts/*.npz", "assets/prompts/v2/*.npz"]
-
+bark = ["assets/prompts/*.npz"]
 
 [tool.black]
 line-length = 100
