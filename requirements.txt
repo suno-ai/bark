@@ -1,0 +1,5 @@
+torch==1.12.0+cpu
+torchvision==0.13.0+cpu
+torchaudio==0.12.0+cpu
+transformers==4.20.1
+bark==0.1.0
