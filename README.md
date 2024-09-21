@@ -119,7 +119,7 @@ Bark can generate all types of audio, and, in principle, doesn't see a differenc
 
 ```python
 text_prompt = """
-    ♪ In the jungle, the mighty jungle, the lion barks tonight ♪
+    ♪ En nuestras vidas, vamos a buscarnos a nosotros mismos. ♪
 """
 audio_array = generate_audio(text_prompt)
 ```
