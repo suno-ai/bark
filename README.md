@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/966cde21-d746-43ea-aa50-4097c92c7ffa
+
 > Notice: Bark is Suno's open-source text-to-speech+ model. If you are looking for our text-to-music models, please visit us on our [web page](https://suno.ai) and join our community on [Discord](https://suno.ai/discord). 
 
      
