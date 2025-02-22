@@ -1,0 +1,23 @@
+1
+00:00:01,599 --> 00:00:06,600
+Hello and welcome to CubicIn and this
+
+2
+00:00:06,600 --> 00:00:10,599
+platform helps students and teachers in
+
+3
+00:00:10,599 --> 00:00:12,440
+making quizzes.
+
+4
+00:00:12,440 --> 00:00:16,800
+This quiz is AI based, so it is
+
+5
+00:00:16,800 --> 00:00:20,199
+unique every time and it
+
+6
+00:00:20,199 --> 00:00:24,240
+basically makes quizzes by following the structure of the syllabus and government and or
