@@ -6,7 +6,7 @@
 [![](https://dcbadge.vercel.app/api/server/J2B2vsjKuE?style=flat&compact=True)](https://suno.ai/discord)
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/FM.svg?style=social&label=@suno_ai_)](https://twitter.com/suno_ai_)
 
-> 🔗 [Examples](https://suno.ai/examples/bark-v0) • [Suno Studio Waitlist](https://suno-ai.typeform.com/suno-studio) • [Updates](#-updates) • [How to Use](#-usage-in-python) • [Installation](#-installation) • [FAQ](#-faq)
+> 🔗 [Demos](#-demos) • [Suno Studio Waitlist](https://suno-ai.typeform.com/suno-studio) • [Updates](#-updates) • [How to Use](#-usage-in-python) • [Installation](#-installation) • [FAQ](#-faq)
 
 [//]: <br> (vertical spaces around image)
 <br>
