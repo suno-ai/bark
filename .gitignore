@@ -1,2 +1,5 @@
 __pycache__/
 suno_bark.egg-info/
+
+# Ignore built snap packages
+*.snap
