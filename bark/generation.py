@@ -209,7 +209,10 @@ def _load_model(ckpt_path, device, use_small=False, model_type="text"):
     if not os.path.exists(ckpt_path):
         logger.info(f"{model_type} model not found, downloading into `{CACHE_DIR}`.")
         _download(model_info["repo_id"], model_info["file_name"])
-    checkpoint = torch.load(ckpt_path, map_location=device)
+    # `weights_only` defaults to True since PyTorch 2.6, which rejects the
+    # numpy scalars stored in the official suno/bark checkpoints. These weights
+    # are fetched from the trusted suno/bark Hugging Face repo, so load fully.
+    checkpoint = torch.load(ckpt_path, map_location=device, weights_only=False)
     # this is a hack
     model_args = checkpoint["model_args"]
     if "input_vocab_size" not in model_args:
