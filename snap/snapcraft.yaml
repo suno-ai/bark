@@ -1,0 +1,52 @@
+name: bark
+base: core24
+version: "0.0.1a"
+summary: Bark text-prompted generative audio model (CLI)
+description: |
+  Bark is a transformer-based text-to-audio model that generates highly
+  realistic, multilingual speech as well as other audio (music, background
+  noise, simple sound effects). This snap provides the `bark` command-line
+  interface. Models (~2-3 GB) are downloaded from Hugging Face on first use.
+  This snap is not endorsed by Suno Inc.
+
+license: Apache-2.0
+source-code: https://github.com/suno-ai/bark
+issues: https://github.com/suno-ai/bark/issues
+website: https://github.com/suno-ai/bark
+
+grade: stable
+confinement: strict
+
+platforms:
+  amd64:
+  # arm64:   # uncomment to build on/for arm64 (CPU torch wheels also exist)
+
+apps:
+  bark:
+    command: bin/bark
+    environment:
+      # Keep downloaded models (~2-3 GB) in the unversioned common dir so they
+      # persist across snap refreshes instead of the per-revision SNAP_USER_DATA.
+      # Bark's CACHE_DIR plus the HuggingFace (HF_HOME) and torch (TORCH_HOME)
+      # caches all derive from XDG_CACHE_HOME.
+      XDG_CACHE_HOME: $SNAP_USER_COMMON/.cache
+    plugs:
+      - home              # read input / write output WAV in $HOME
+      - network           # download models from Hugging Face on first run
+      - removable-media   # optional: read/write under /media
+
+parts:
+  bark:
+    plugin: python
+    source: .
+    build-environment:
+      # PyTorch publishes CPU wheels as a local version (e.g. 2.x.x+cpu) on its
+      # own index. As an *extra* index this version sorts above the default
+      # CUDA wheel on PyPI, so pip selects the CPU build for `torch` (declared
+      # in pyproject.toml) without any pinning or override-build.
+      - PIP_EXTRA_INDEX_URL: https://download.pytorch.org/whl/cpu
+    build-packages:
+      - python3-dev
+      - python3-venv
+    stage-packages:
+      - libgomp1          # OpenMP runtime required by CPU torch
