@@ -7,8 +7,19 @@ from .api import generate_audio
 from .generation import SAMPLE_RATE
 
 
-def cli():
-    """Commandline interface."""
+def _parse_bool(value):
+    # argparse type=bool treats every non-empty string as true, including "false".
+    if isinstance(value, bool):
+        return value
+    text = str(value).strip().lower()
+    if text in {"1", "true", "t", "yes", "y"}:
+        return True
+    if text in {"0", "false", "f", "no", "n"}:
+        return False
+    raise argparse.ArgumentTypeError("%s is not a boolean" % value)
+
+
+def build_parser():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--text", type=str, help="text to be turned into audio")
     parser.add_argument(
@@ -36,15 +47,19 @@ def cli():
         type=float,
         help="generation temperature (1.0 more diverse, 0.0 more conservative)",
     )
-    parser.add_argument("--silent", default=False, type=bool, help="disable progress bar")
+    parser.add_argument("--silent", default=False, type=_parse_bool, help="disable progress bar")
     parser.add_argument(
         "--output_full",
         default=False,
-        type=bool,
+        type=_parse_bool,
         help="return full generation to be used as a history prompt",
     )
+    return parser
 
-    args = vars(parser.parse_args())
+
+def cli():
+    """Commandline interface."""
+    args = vars(build_parser().parse_args())
     input_text: str = args.get("text")
     output_filename: str = args.get("output_filename")
     output_dir: str = args.get("output_dir")
